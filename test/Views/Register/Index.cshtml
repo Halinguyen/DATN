@@ -1,15 +1,55 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>QLHGX Hali</title>
-        <link href="~/Content/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>QLHGX Hali</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <script>
+        var username, password, hodem, ten,nhaplai;
+        $(document).ready(function () {
+            $(document).on('click', '#btnRegister', function () {
+                username = $('#inputEmailAddress').val();
+                password = $('#inputPassword').val();
+                hodem = $('#inputFirstName').val();
+                ten = $('#inputLastName').val();
+                nhaplai = $('#inputConfirmPassword').val();
+                const data = {
+                    tendangnhap: $('#inputEmailAddress').val(),
+                    matkhau: $('#inputPassword').val()
+                }
+                if (username.length == 0 || password.length == 0 || hodem.length == 0 || ten.length == 0) {
+                    alert('Bạn vui lòng nhập đủ dữ liệu !');
+                    return false;
+                }
+                if (nhaplai != password) {
+                    alert('Mật khẩu nhập lại không khớp !');
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        url: location.pathname + '/Dangky',
+                        type: 'POST',
+                        data: data,
+                    }).done(function (res) {
+                        if (res) {
+                            window.location.href = "Home/Index";
+                        }
+                        else {
+                            alert('Đăng ký thất bại :(');
+                        }
+                    });
+                }
+            });
+        });
+        
+    </script>
+</head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -25,35 +65,37 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputFirstName">Họ đệm</label>
-                                                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Nhập họ đệm" />
+                                                        <input class="form-control py-4" id="inputFirstName" required type="text" placeholder="Nhập họ đệm" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputLastName">Tên</label>
-                                                        <input class="form-control py-4" id="inputLastName" type="text" placeholder="Nhập tên" />
+                                                        <input class="form-control py-4" id="inputLastName" required type="text" placeholder="Nhập tên" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputEmailAddress">Tên đăng nhập</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Nhập tên đăng nhập" />
+                                                <input class="form-control py-4" id="inputEmailAddress" required type="email" aria-describedby="emailHelp" placeholder="Nhập tên đăng nhập" />
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">Mật khẩu</label>
-                                                        <input class="form-control py-4" id="inputPassword" type="password" placeholder="Nhập mật khẩu" />
+                                                        <input class="form-control py-4" id="inputPassword" required type="password" placeholder="Nhập mật khẩu" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputConfirmPassword">Xác nhận mật khẩu</label>
-                                                        <input class="form-control py-4" id="inputConfirmPassword" type="password" placeholder="Xác nhận mật khẩu" />
+                                                        <input class="form-control py-4" id="inputConfirmPassword" required type="password" placeholder="Xác nhận mật khẩu" />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="">Tạo tài khoản</a></div>
+                                            <div class="form-group mt-4 mb-0">
+                                                <input type="submit" class="btn btn-primary btn-block" id="btnRegister" value="Tạo tài khoản"/>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
@@ -82,7 +124,7 @@
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>

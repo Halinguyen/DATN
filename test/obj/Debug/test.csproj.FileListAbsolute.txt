@@ -110,3 +110,7 @@ C:\Users\vas\Documents\Visual Studio 2019\DATN\test\obj\Debug\test.csproj.CoreCo
 C:\Users\vas\Documents\Visual Studio 2019\DATN\test\obj\Debug\test.csproj.CopyComplete
 C:\Users\vas\Documents\Visual Studio 2019\DATN\test\obj\Debug\test.dll
 C:\Users\vas\Documents\Visual Studio 2019\DATN\test\obj\Debug\test.pdb
+C:\Users\vas\Documents\Visual Studio 2019\DATN\test\bin\EntityFramework.dll
+C:\Users\vas\Documents\Visual Studio 2019\DATN\test\bin\EntityFramework.SqlServer.dll
+C:\Users\vas\Documents\Visual Studio 2019\DATN\test\bin\EntityFramework.xml
+C:\Users\vas\Documents\Visual Studio 2019\DATN\test\bin\EntityFramework.SqlServer.xml

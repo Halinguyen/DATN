@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,6 +137,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\tbl_Calam.cs" />
+    <Compile Include="Models\tbl_Calam_Nhanvien.cs" />
+    <Compile Include="Models\tbl_CT_Hoadon.cs" />
+    <Compile Include="Models\tbl_Giave.cs" />
+    <Compile Include="Models\tbl_Hoadon.cs" />
+    <Compile Include="Models\tbl_Khachhang.cs" />
+    <Compile Include="Models\tbl_Khudexe.cs" />
+    <Compile Include="Models\tbl_Khunggio.cs" />
+    <Compile Include="Models\tbl_Loaive.cs" />
+    <Compile Include="Models\tbl_Loaixe.cs" />
+    <Compile Include="Models\tbl_Nhanvien.cs" />
+    <Compile Include="Models\tbl_Phanquyen.cs" />
+    <Compile Include="Models\tbl_Quyen.cs" />
+    <Compile Include="Models\tbl_Taikhoan.cs" />
+    <Compile Include="Models\tbl_Ve.cs" />
+    <Compile Include="Models\tbl_Xe.cs" />
+    <Compile Include="Models\tbl_Xeravao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +225,7 @@
     <None Include="Views\Register\Index.cshtml" />
     <None Include="Views\TrangchuChung\Index.cshtml" />
     <None Include="Views\TrangchuNhanvien\Index.cshtml" />
+    <None Include="Views\TrangchuKhachhang\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -211,11 +239,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\TrangchuKhachhang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
