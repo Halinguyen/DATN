@@ -4,7 +4,10 @@ namespace test.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Configuration;
+    using System.Data;
     using System.Data.Entity.Spatial;
+    using System.Data.SqlClient;
 
     public partial class tbl_Nhanvien
     {
@@ -14,6 +17,20 @@ namespace test.Models
             tbl_Calam_Nhanvien = new HashSet<tbl_Calam_Nhanvien>();
             tbl_Hoadon = new HashSet<tbl_Hoadon>();
             tbl_Xeravao = new HashSet<tbl_Xeravao>();
+        }
+
+        public tbl_Nhanvien(string pK_iNhanvienID, string sHoten, string dNgaysinh, string dNgayvaolam, string bGioitinh, string sSodienthoai, string sDiachi, string bTrangthailamviec, string fK_iTaikhoanID, string sSoCMND)
+        {
+            PK_iNhanvienID = Convert.ToInt16(pK_iNhanvienID);
+            this.sHoten = sHoten;
+            this.dNgaysinh = Convert.ToDateTime(dNgaysinh);
+            this.dNgayvaolam = Convert.ToDateTime(dNgayvaolam);
+            this.bGioitinh = Convert.ToBoolean(bGioitinh);
+            this.sSodienthoai = sSodienthoai;
+            this.sDiachi = sDiachi;
+            this.bTrangthailamviec = Convert.ToByte(bTrangthailamviec);
+            FK_iTaikhoanID = Convert.ToInt64(fK_iTaikhoanID);
+            this.sSoCMND = sSoCMND;
         }
 
         [Key]
@@ -55,5 +72,47 @@ namespace test.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Xeravao> tbl_Xeravao { get; set; }
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
+
+      
+        public List<tbl_Nhanvien> GetNhanvienByPK (short nhanvienID)
+        {
+            List<tbl_Nhanvien> danhsachnhanvien = new List<tbl_Nhanvien>();
+            SqlCommand cmd;
+            SqlDataReader dar;
+            if(nhanvienID == 0)
+            {
+                cmd = new SqlCommand("Select * from tbl_Nhanvien", conn);
+                cmd.CommandType = CommandType.Text;
+            }
+            else
+            {
+                cmd = new SqlCommand("Select * from tbl_Nhanvien where PK_iNhanvienID = " + nhanvienID, conn);
+                cmd.CommandType = CommandType.Text;
+            }
+            conn.Open();
+            dar = cmd.ExecuteReader();
+            if (dar.HasRows)
+            {
+                while (dar.Read())
+                {
+                    tbl_Nhanvien nhanvien = new tbl_Nhanvien(
+                        dar["PK_iNhanvienID"].ToString(),
+                        dar["sHoten"].ToString(),
+                        dar["dNgaysinh"].ToString(),
+                        dar["dNgayvaolam"].ToString(),
+                        dar["bGioitinh"].ToString(),
+                    dar["sSodienthoai"].ToString(),
+                       dar["sDiachi"].ToString(),
+                    dar["bTrangthailamviec"].ToString(),
+                        dar["FK_iTaikhoanID"].ToString(),
+                        dar["sSoCMND"].ToString());
+                 
+                    danhsachnhanvien.Add(nhanvien);
+
+                }
+            }
+            return danhsachnhanvien;
+        }
     }
 }
