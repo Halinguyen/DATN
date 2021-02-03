@@ -43,26 +43,30 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-                            @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })  
+
+
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        @Html.ActionLink("Xem danh sách nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
+
                         <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Quản lý khu để xe
+                            Làm gì gì nữa
                         </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
+                        <div class="sb-sidenav-menu-heading">Quản lý khu để xe</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            
+                            Layouts
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Danh sách quyền</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Cấp quyền</a>
+                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Quản lý giá vé
+                            Pages
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
@@ -112,11 +116,10 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            Danh sách nhân viên
+                            Quản lý vé xe
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -124,31 +127,23 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Họ và tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Số CMND</th>
-                                            <th>SĐT</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Ngày vào làm</th>
+                                            <th>STT</th>
+                                            <th>Mã vé</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái hoạt động</th>
                                             <th>Xử lý</th>
 
                                         </tr>
                                     </thead>
                                     <tbody id="tbody">
-                                        @foreach (var nv in @ViewBag.danhsachNhanvien)
-                                        {
-                                            <tr>
-                                                <td>@nv.sHoten</td>
-                                                <td>@nv.dNgaysinh</td>
-                                                <td>@nv.bGioitinh</td>
-                                                <td>@nv.sSoCMND</td>
-                                                <td>@nv.sSodienthoai</td>
-                                                <td>@nv.sDiachi</td>
-                                                <td>@nv.dNgayvaolam</td>
-                                                <td><i class="fas fa-edit"></i> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
-                                            </tr>
-                                        }
+                                        <tr>
+                                            <td>1</td>
+                                            <td>V1010</td>
+                                            <td>22/12/2019</td>
+                                            <td><i class="fas fa-toggle-on" style="font-size:30px"></i></td>
+                                            <td><i class="fas fa-edit"></i> </td>
+
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

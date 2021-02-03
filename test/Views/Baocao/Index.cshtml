@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,26 +44,30 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-                            @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })  
+
+
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        @Html.ActionLink("Xem danh sách nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
+
                         <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Quản lý khu để xe
+                            Làm gì gì nữa
                         </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
+                        <div class="sb-sidenav-menu-heading">Quản lý khu để xe</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            
+                            Layouts
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Danh sách quyền</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Cấp quyền</a>
+                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Quản lý giá vé
+                            Pages
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
@@ -110,52 +115,49 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            Danh sách nhân viên
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;">Thêm mới</button>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Họ và tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Số CMND</th>
-                                            <th>SĐT</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Ngày vào làm</th>
-                                            <th>Xử lý</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                        @foreach (var nv in @ViewBag.danhsachNhanvien)
-                                        {
-                                            <tr>
-                                                <td>@nv.sHoten</td>
-                                                <td>@nv.dNgaysinh</td>
-                                                <td>@nv.bGioitinh</td>
-                                                <td>@nv.sSoCMND</td>
-                                                <td>@nv.sSodienthoai</td>
-                                                <td>@nv.sDiachi</td>
-                                                <td>@nv.dNgayvaolam</td>
-                                                <td><i class="fas fa-edit"></i> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+            <div class="card">
+                <div class="card-header d-print-none">
+                    <div class="card-tools w-100">
+                        <div>
+                            <label>Bắt đầu từ: </label><input type="date" id="txtNgayBatdau" />
+                            <label>Đến: </label><input type="date" id="txtNgayketthuc" />
                         </div>
                     </div>
+                    <button type="button" id="btnXem" class="btn btn-primary w-100">Xem</button>
                 </div>
-            </main>
+                <div class="card-body">
+                    <h1 class="title">Báo cáo doanh thu</h1>
+                    <table id="tblHDNCKH" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên khoản thu</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody_hoatdong">
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    Vé ngày xe máy
+                                </td>
+                                <td>30</td>
+                                <td>5000</td>
+                                <td>150000</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="export" style="margin-top:30px;">
+                        <a href="" class="btn btn-success">Export Excel</a>
+                    </div>
+                </div>
+
+            </div>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -181,3 +183,6 @@
     <script src="assets/demo/datatables-demo.js"></script>
 </body>
 </html>
+
+
+

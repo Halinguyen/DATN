@@ -43,7 +43,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-                            @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })  
+                        @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
                         <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý khu để xe
@@ -51,7 +51,7 @@
                         <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            
+
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -111,48 +111,18 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid">
-
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            Danh sách nhân viên
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;">Thêm mới</button>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Họ và tên</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Giới tính</th>
-                                            <th>Số CMND</th>
-                                            <th>SĐT</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Ngày vào làm</th>
-                                            <th>Xử lý</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                        @foreach (var nv in @ViewBag.danhsachNhanvien)
-                                        {
-                                            <tr>
-                                                <td>@nv.sHoten</td>
-                                                <td>@nv.dNgaysinh</td>
-                                                <td>@nv.bGioitinh</td>
-                                                <td>@nv.sSoCMND</td>
-                                                <td>@nv.sSodienthoai</td>
-                                                <td>@nv.sDiachi</td>
-                                                <td>@nv.dNgayvaolam</td>
-                                                <td><i class="fas fa-edit"></i> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="row" style="text-align:center">
+                    <div class="col-lg-6" style="border-right: 1px solid black;height:600px">
+                        <h3>Danh sách tài khoản</h3>
+                        <hr />
+                        <h4 style="color:#23a9ce">hali123@gmail.com</h4>
+                        <h4>account456@gmail.com</h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3>Quyền</h3>
+                        <hr />
+                        <label><span>Nhân viên</span>&emsp;&emsp;&emsp;<input type="checkbox" /></label>
+                        
                     </div>
                 </div>
             </main>

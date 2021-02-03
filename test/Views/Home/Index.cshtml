@@ -9,63 +9,11 @@
     <title>Trang Admin</title>
     <link href="~/Content/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-    <script>
+    
 
-        //if (res) {
-        //    html = '';
-        //    for (const [key, value] of Object.entries(res)) {
-        //        html = '';
-        //        for (const [key, value] of Object.entries(res)) {
-        //            html += `
-        //                <tr>
-        //                    <td class="text-center">`+ (parseInt(key) + 1) + `</td>
-        //                        <td class="">
-        //                            <span class="text-dark-75 d-block">`
-        //                + value['STenHoatDong'] +
-        //                `</span>
-        //                        </td>
-        //                        <td class="">
-        //                            <span class="text-dark-75 d-block ">`
-        //                + value['ten_canbo'] +
-        //                `</span>
-        //                            <span class="text-muted font-weight-bold d-block">Chủ nhiệm</span>
-        //                        </td>
-        //                        <td class="">
-        //                            <span class="text-dark-75 d-block ">`
-        //                + value['DThoiGianKT'] +
-        //                `</span>
-        //                        </td>
-        //                        <td class="">
-        //                            <span class="text-dark-75 d-block ">`
-        //                + value['DThoiGianKT'] +
-        //                `</span>
-        //                        </td>
-        //                        <td class="text-right">
-        //                            <a href="/MinhChung/`
-        //                + value['PK_iHoatDongNCKH'] +
-        //                `" class="btn btn-sm btn-info" title="Xem minh chứng">
-        //                                <i class="far fa-eye"></i>
-        //                            </a>
-        //                            <button value="`
-        //                + value['PK_iHoatDongNCKH'] +
-        //                `"class="capnhat btn btn-light-danger btn-sm font-size-sm pt-1 pb-1" title="Cập nhật" data-toggle="modal" data-target=".modal-update">
-        //                                <i class="fas fa-pencil-alt"></i>
-        //                            </button>
-        //                            <button value= "`
-        //                + value['PK_iHoatDongNCKH'] +
-        //                `" class="chitiethd btn btn-light-success btn-sm font-size-sm pt-1 pb-1" title="Chi tiết" data-toggle="tooltip" data-placement="top">
-        //                                <i class="fa fa-bars" aria-hidden="true"></i>
-        //                            </button>
-        //                        </td>
-        //                    </tr>
-        //            `;
-        //            $('.tbody_hoatdong').html(html);
-        //        }
-        //    }
-        //}
 
-    </script>
 </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -171,118 +119,42 @@
             </div> 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Quản lý nhân viên</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Quản lý khu để xe</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Quản lý giá vé</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Quản lý quyền</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <h1>Quản lý xe ra vào</h1>
+                    <div class="row">
+                        <div class="col-lg-6" style="border-right: 1px solid black; height:600px">
+                            <p><img id="output" width="400" style="border: 1px solid black" /></p>
+                            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+                            <p><label for="file" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                            <script>
+                                var loadFile = function (event) {
+                                    var image = document.getElementById('output');
+                                    image.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
+                            <button type="button" class="btn btn-primary">Quét</button>
+                            <h3>Thông tin xe vào</h3>
+                            <hr />
+                            <label>Biển số xe vào</label>
+                            <input type="text" id="txtBiensoxe" />
+                            <button type="button" class="btn btn-warning">Lưu</button>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table mr-1"></i>
-                                DataTable Example
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody id="tbody">
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jennifer Chang</td>
-                                                <td>Regional Director</td>
-                                                <td>Singapore</td>
-                                                <td>28</td>
-                                                <td>2010/11/14</td>
-                                                <td>$357,650</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="col-lg-6">
+                            <p><img id="outputxera" width="400" style="border: 1px solid black" /></p>
+                            <p><input type="file" accept="image/*" name="image1" id="file1" onchange="loadFileImage (event)" style="display: none;"></p>
+                            <p><label for="file1" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                            <script>
+                                var loadFileImage = function (event) {
+                                    var image1 = document.getElementById('outputxera');
+                                    image1.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
+                            <button type="button" class="btn btn-primary">Quét</button>
+                            <h3>Thông tin xe ra</h3>
+                            <hr />
+                            <label>Biển số xe ra</label>
+                            <input type="text" id="txtBiensoxera" />
+
+                            <button type="button" class="btn btn-warning">Kiểm tra</button>
                         </div>
                     </div>
                 </main>
