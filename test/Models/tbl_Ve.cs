@@ -71,7 +71,7 @@ namespace test.Models
                     tbl_Ve taikhoan = new tbl_Ve(
                         dar["PK_iVeID"].ToString(),
                         dar["sMave"].ToString(),
-                        dar["dNgaytao"].ToString(),
+                        dar["tNgaytao"].ToString(),
                         dar["bTrangthai"].ToString(),
                         dar["tNgayhethan"].ToString()
                     );
@@ -79,6 +79,36 @@ namespace test.Models
                 }
             }
             return danhsachVexe;
+        }
+
+        public List<tbl_Ve> GetVeBySoSeri(string masove)
+        {
+            List<tbl_Ve> danhsachvexe = new List<tbl_Ve>();
+            SqlCommand cmd;
+            SqlDataReader dar;
+            cmd = new SqlCommand("sp_GetveBySeri", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter soseri = cmd.Parameters.Add("@masove", SqlDbType.NVarChar);
+            soseri.Value = masove;
+            conn.Open();
+            dar = cmd.ExecuteReader();
+            if (dar.HasRows)
+            {
+                while (dar.Read())
+                {
+                    tbl_Ve vexe = new tbl_Ve(
+                       dar["PK_iVeID"].ToString(),
+                       dar["sMave"].ToString(),
+                       dar["tNgaytao"].ToString(),
+                       dar["bTrangthai"].ToString(),
+                       dar["tNgayhethan"].ToString()
+                   );
+
+                    danhsachvexe.Add(vexe);
+
+                }
+            }
+            return danhsachvexe;
         }
     }
 }

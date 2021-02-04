@@ -142,7 +142,7 @@ namespace test.Models
             }
             return ketqua;
         }
-        public bool ThemTaiKhoan(string tendangnhap, string matkhau)
+        public bool ThemTaiKhoan(string tendangnhap,string matkhau)
         {
             bool ketqua = false;
             try
@@ -167,6 +167,41 @@ namespace test.Models
                 return ketqua;
             }
         }
+        public List<tbl_Taikhoan> getTaikhoanByTendangnhap (string tendangnhap)
+        {
+            List<tbl_Taikhoan> danhsachTaikhoan = new List<tbl_Taikhoan>();
+            try
+            {
+                SqlDataReader dar;
+                SqlCommand cmd = new SqlCommand("sp_GetTaikhoanByTendangnhap", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter username = cmd.Parameters.Add("@username", SqlDbType.NVarChar);
+                username.Value = tendangnhap;
+                conn.Open();
+                dar = cmd.ExecuteReader();
+                if (dar.HasRows)
+                {
+                    while (dar.Read())
+                    {
+                        tbl_Taikhoan taikhoan = new tbl_Taikhoan(
+                            dar["PK_iTaikhoanID"].ToString(),
+                            dar["sUsername"].ToString(),
+                            dar["sMatkhau"].ToString(),
+                            dar["dNgaytao"].ToString(),
+                            dar["bTrangthai"].ToString()
+                        );
+                        danhsachTaikhoan.Add(taikhoan);
+                    }
+                  
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return danhsachTaikhoan;
+        
+    }
         
     }
 }
