@@ -114,5 +114,65 @@ namespace test.Models
             }
             return danhsachnhanvien;
         }
+        public bool ThemNhanvien (string hoten, DateTime ngaysinh, string diachi, bool gioitinh, string sodienthoai, string socmnd, DateTime ngayvaolam, long mataikhoan, byte trangthailamviec)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_InsertNhanvien", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@hoten", hoten);
+                cmd.Parameters.AddWithValue("@ngaysinh", ngaysinh);
+                cmd.Parameters.AddWithValue("@ngayvaolam", ngayvaolam);              
+                cmd.Parameters.AddWithValue("@gioitinh", gioitinh);
+                cmd.Parameters.AddWithValue("@sodienthoai", sodienthoai);
+                cmd.Parameters.AddWithValue("@diachi", diachi);
+                cmd.Parameters.AddWithValue("@trangthailamviec", trangthailamviec);
+                cmd.Parameters.AddWithValue("@mataikhoan", mataikhoan);
+                cmd.Parameters.AddWithValue("@socmnd", socmnd);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
+        }
+
+        public bool SuaNhanvien ( short nhanvienID,string hoten, DateTime ngaysinh, string diachi, bool gioitinh, string sodienthoai, string socmnd, DateTime ngayvaolam, long mataikhoan, byte trangthailamviec)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_UpdateNhanvien", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@manhanvien", nhanvienID);
+                cmd.Parameters.AddWithValue("@hoten", hoten);
+                cmd.Parameters.AddWithValue("@ngaysinh", ngaysinh);
+                cmd.Parameters.AddWithValue("@ngayvaolam", ngayvaolam);
+                cmd.Parameters.AddWithValue("@gioitinh", gioitinh);
+                cmd.Parameters.AddWithValue("@sodienthoai", sodienthoai);
+                cmd.Parameters.AddWithValue("@diachi", diachi);
+                cmd.Parameters.AddWithValue("@trangthailamviec", trangthailamviec);
+                cmd.Parameters.AddWithValue("@mataikhoan", mataikhoan);
+                cmd.Parameters.AddWithValue("@socmnd", socmnd);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
+        }
     }
 }

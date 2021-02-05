@@ -7,9 +7,117 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Trang Admin</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="~/Content/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+
+
+    <script>
+        var manhanvien = 0;
+        var hoten, sodienthoai, diachi, gioitinh, tentaikhoan, socmnd, ngaysinh, ngayvaolam, trangthailamviec;
+        $(document).ready(function () {
+            $(document).on('click', '#btnThem', function () {
+                hoten = $('#inputHoten').val();
+                sodienthoai = $('#inputSodienthoai').val();
+                diachi = $('#inputDiachi').val();
+                gioitinh = $('input[name="Gioitinh"]:checked').val();
+                tentaikhoan = $('#inputUsername').val();
+                socmnd = $('#inputCMND').val();
+                ngaysinh = $('#inputNgaysinh').val();
+                ngayvaolam = $('#inputNgayvaolam').val();
+                trangthailamviec = $('input[name="TTLV"]:checked').val();
+
+                const data = {
+
+                    hoten, sodienthoai, diachi, gioitinh, tentaikhoan, socmnd, ngaysinh, ngayvaolam, trangthailamviec
+                }
+                if (hoten.length == 0 || sodienthoai.length == 0 || diachi.length == 0 || tentaikhoan.length == 0 || socmnd.length == 0) {
+                    alert('Bạn vui lòng nhập đủ dữ liệu !');
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        url: location.pathname + '/ThemNhanvien',
+                        type: 'POST',
+                        data: data,
+                    }).done(function (res) {
+                        if (res) {
+                            window.location.href = "DSNhanvien/Index";
+                        }
+                        else {
+                            alert('Thêm nhân viên thất bại :(');
+                        }
+                    });
+                }
+            });
+
+            // Get data Sửa 
+
+            $(document).on('click', '.btnEdit', function () {
+                var nhanvienID = $(this).val();
+                manhanvien = nhanvienID;
+                const data = {
+                    nhanvienID
+                }
+                $.ajax({
+                    url: location.pathname + '/GetNhanvien',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        alert(res);
+                        var arrKetqua = res.split("#");
+                        $('#inputHotenSua').val(arrKetqua[0])  ;
+                        $('#inputSodienthoaiSua').val(arrKetqua[4])  ;
+                        $('#inputDiachiSua').val(arrKetqua[2]);
+                        $('input[name="GioitinhSua"]').attr("checked", arrKetqua[3]);
+                        $('#inputUsernameSua').val(arrKetqua[7])  ;
+                        $('#inputCMNDSua').val(arrKetqua[5]);
+                        $('#inputNgaysinhSua').val(arrKetqua[1]);
+                        $('#inputNgayvaolamSua').val(arrKetqua[6]) ;
+                        $('input[name="TTLVSua"]').attr("checked", arrKetqua[8]);
+                    }
+                    else {
+                        alert('Sửa khách hàng thất bại :(');
+                    }
+                });
+
+            });
+
+            // Sửa nhân viên
+            $(document).on('click', '#btnLuuSua', function () {
+                hoten = $('#inputHotenSua').val();
+                sodienthoai = $('#inputSodienthoaiSua').val();
+                diachi = $('#inputDiachiSua').val();
+                gioitinh = $('input[name="GioitinhSua"]:checked').val();
+                tentaikhoan = $('#inputUsernameSua').val();
+                socmnd = $('#inputCMNDSua').val();
+                ngaysinh = $('#inputNgaysinhSua').val();
+                
+                ngayvaolam = $('#inputNgayvaolamSua').val();
+                trangthailamviec = $('input[name="TTLVSua"]:checked').val();
+                const data = {
+                    manhanvien, hoten, sodienthoai, diachi, gioitinh, tentaikhoan, socmnd, ngaysinh, ngayvaolam, trangthailamviec
+                }
+                $.ajax({
+                    url: location.pathname + '/SuaNhanvien',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        window.location.href = "DSNhanvien/Index";
+                    }
+                    else {
+                        alert('Sửa thông tin nhân viên thất bại :(');
+                    }
+                });
+
+            });
+        });
+
+
+    </script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -43,7 +151,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-                            @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })  
+                        @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
                         <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Quản lý khu để xe
@@ -51,7 +159,7 @@
                         <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            
+
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -120,7 +228,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;">Thêm mới</button>
+                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;" data-toggle="modal" data-target="#ModalThem">Thêm mới</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -138,16 +246,17 @@
                                     <tbody id="tbody">
                                         @foreach (var nv in @ViewBag.danhsachNhanvien)
                                         {
-                                            <tr>
-                                                <td>@nv.sHoten</td>
-                                                <td>@nv.dNgaysinh</td>
-                                                <td>@nv.bGioitinh</td>
-                                                <td>@nv.sSoCMND</td>
-                                                <td>@nv.sSodienthoai</td>
-                                                <td>@nv.sDiachi</td>
-                                                <td>@nv.dNgayvaolam</td>
-                                                <td><i class="fas fa-edit"></i> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
-                                            </tr>
+                                        <tr>
+                                            <td style="display: none">@nv.PK_iNhanvienID</td>
+                                            <td>@nv.sHoten</td>
+                                            <td>@nv.dNgaysinh</td>
+                                            <td>@nv.bGioitinh</td>
+                                            <td>@nv.sSoCMND</td>
+                                            <td>@nv.sSodienthoai</td>
+                                            <td>@nv.sDiachi</td>
+                                            <td>@nv.dNgayvaolam</td>
+                                            <td><button class="btnEdit" data-toggle="modal" data-target="#ModalSua" value="@nv.PK_iNhanvienID"><i class="fas fa-edit"></i></button> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -170,7 +279,142 @@
             </footer>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+
+
+    @*Modal thêm nhân viên*@
+    <div class="modal fade" id="ModalThem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm thông tin nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputHoten">Họ tên nhân viên</label>
+                            <input class="form-control py-4" id="inputHoten" type="text" placeholder="Nhập họ tên nhân viên" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgaysinh">Ngày sinh</label>
+                            <input class="form-control py-4" id="inputNgaysinh" type="date" required />
+                        </div>
+                        <div class="form-group">
+
+                            <label class="small mb-1" for="inputDiachi">Địa chỉ</label>
+                            <input class="form-control py-4" id="inputDiachi" type="text" placeholder="Nhập địa chỉ" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputGioitinh">Giới tính </label>
+                            &emsp;&emsp;<input name="Gioitinh" value="false " type="radio" style="width:20px;height:20px" /> Nam
+                            &emsp;&emsp;<input name="Gioitinh" value="true" checked="checked" type="radio" style="width:20px;height:20px" /> Nữ
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputSodienthoai">Số điện thoại</label>
+                            <input class="form-control py-4" id="inputSodienthoai" type="text" placeholder="Nhập số điện thoại" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputCMND">Số chứng minh nhân dân</label>
+                            <input class="form-control py-4" id="inputCMND" type="text" placeholder="Nhập số CMND" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgayvaolam">Ngày vào làm</label>
+                            <input class="form-control py-4" id="inputNgayvaolam" type="date" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputUsername">Tên tài khoản</label>
+                            <input class="form-control py-4" id="inputUsername" type="text" placeholder="Nhập tên tài khoản" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgayvaolam">Trạng thái làm việc</label>
+                            &emsp;<input name="TTLV" value="0 " type="radio" style="width:14px;height:14px;" /> Làm việc
+                            &emsp;<input name="TTLV" value="1" checked="checked" type="radio" style="width:14px;height:14px;" /> Nghỉ tạm thời
+                            &emsp;<input name="TTLV" value="2" checked="checked" type="radio" style="width:14px;height:14px;" /> Đã nghỉ
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btnThem" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @* Modal sửa nhân viên*@
+
+
+    <div class="modal fade" id="ModalSua" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa thông tin nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputHotenSua">Họ tên nhân viên</label>
+                            <input class="form-control py-4" id="inputHotenSua" type="text" placeholder="Nhập họ tên nhân viên" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgaysinhSua">Ngày sinh</label>
+                            <input class="form-control py-4" id="inputNgaysinhSua" type="date" required />
+                        </div>
+                        <div class="form-group">
+
+                            <label class="small mb-1" for="inputDiachiSua">Địa chỉ</label>
+                            <input class="form-control py-4" id="inputDiachiSua" type="text" placeholder="Nhập địa chỉ" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputGioitinhSua">Giới tính </label>
+                            &emsp;&emsp;<input name="GioitinhSua" value="false " type="radio" style="width:20px;height:20px" /> Nam
+                            &emsp;&emsp;<input name="GioitinhSua" value="true" checked="checked" type="radio" style="width:20px;height:20px" /> Nữ
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputSodienthoaiSua">Số điện thoại</label>
+                            <input class="form-control py-4" id="inputSodienthoaiSua" type="text" placeholder="Nhập số điện thoại" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputCMNDSua">Số chứng minh nhân dân</label>
+                            <input class="form-control py-4" id="inputCMNDSua" type="text" placeholder="Nhập số CMND" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgayvaolamSua">Ngày vào làm</label>
+                            <input class="form-control py-4" id="inputNgayvaolamSua" type="date" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputUsernameSua">Tên tài khoản</label>
+                            <input class="form-control py-4" id="inputUsernameSua" type="text" placeholder="Nhập tên tài khoản" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputNgayvaolamSua">Trạng thái làm việc</label>
+                            &emsp;<input name="TTLVSua" value="0 " type="radio" style="width:14px;height:14px;" /> Làm việc
+                            &emsp;<input name="TTLVSua" value="1" checked="checked" type="radio" style="width:14px;height:14px;" /> Nghỉ tạm thời
+                            &emsp;<input name="TTLVSua" value="2" checked="checked" type="radio" style="width:14px;height:14px;" /> Đã nghỉ
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btnLuuSua" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

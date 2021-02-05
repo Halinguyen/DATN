@@ -77,8 +77,8 @@
 
             });
 
-            $(document).on('click', '#btnSua', function () {
-                var makhachhang = $('#btnSua').attr('maSua');
+            $(document).on('click', '.btnSua', function () {
+                var makhachhang = $('.btnSua').attr('maSua');
                 
                 const data = {
                     makhachhang
@@ -525,7 +525,7 @@
                                                 <td>@kh.Username</td>
                                                 <td>@kh.sSoCMND</td>
                                                 <th>@kh.Soseri</th>
-                                                <td><button id="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button id="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> </td>
+                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button id="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> </td>
 
                                             </tr>
                                         }
