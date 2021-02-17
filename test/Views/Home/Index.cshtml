@@ -47,8 +47,6 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-
-
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             @Html.ActionLink("Xem danh sách nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
 
@@ -59,7 +57,7 @@
                             <div class="sb-sidenav-menu-heading">Quản lý khu để xe</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
+                                @Html.ActionLink("Khu để xe", "Index", "DSKhudexe", null, new { @class = "nav-link" })
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">

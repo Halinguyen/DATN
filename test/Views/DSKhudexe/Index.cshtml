@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using test.Models;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,8 +9,114 @@
     <meta name="author" content="" />
     <title>Trang Admin</title>
     <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    <script>
+        var tenkhudexe, loaixe;
+        var makhudexe = 0;
+        $(document).ready(function () {
+            $(document).on('click', '#btnTaomoi', function () {
+                tenkhudexe = $('#inputTenkhu').val();
+                loaixe = $('#dllLoaixe option:selected').attr('id');
+                const data = {
+                    tenkhudexe, loaixe
+                }
+                if (tenkhudexe.length == 0) {
+                    alert('Bạn vui lòng nhập đủ dữ liệu !');
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        url: location.pathname + '/ThemKhudexe',
+                        type: 'POST',
+                        data: data,
+                    }).done(function (res) {
+                        if (res) {
+                            window.location.href = "DSKhudexe/Index";
+                        }
+                        else {
+                            alert('Thêm không thành công :(');
+                        }
+                    });
+                }
+            });
+
+
+            //Xóa
+            $(document).on('click', '#btnXoa', function () {
+                var khudexeID = $(this).val();
+                const data = {
+                    khudexeID
+                }
+                $.ajax({
+                    url: location.pathname + '/XoaKhudexe',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        window.location.href = "DSKhudexe/Index";
+                    }
+                    else {
+                        alert('Xóa thất bại :(');
+                    }
+                });
+
+            });
+
+            $(document).on('click', '.btnSua', function () {
+                var khudexeID = $(this).val();
+                makhudexe = khudexeID;
+
+
+                const data = {
+                    khudexeID
+                }
+                $.ajax({
+                    url: location.pathname + '/GetKhudexe',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        alert(res);
+                        var arrKetqua = res.split("#");
+                        $('#inputTenkhuSua').val(arrKetqua[0]);
+                        $("#dllLoaixeSua").val(arrKetqua[1]);
+                            
+                    }
+                    else {
+                        alert('Sửa khách hàng thất bại :(');
+                    }
+                });
+
+            });
+
+            // Sửa
+            $(document).on('click', '#btnLuu', function () {
+                tenkhudexe = $('#inputTenkhuSua').val();
+                loaixe = $('#dllLoaixeSua option:selected').attr('id');
+               
+                const data = {
+                    makhudexe, tenkhudexe, loaixe
+                }
+                $.ajax({
+                    url: location.pathname + '/SuaKhudexe',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        window.location.href = "DSKhudexe/Index";
+                    }
+                    else {
+                        alert('Sửa thất bại :(');
+                    }
+                });
+
+            });
+        });
+
+
+    </script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -119,31 +226,40 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            Quản lý vé xe
+                            Quản lý khu để xe
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;">Thêm mới</button>
+                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;" data-target="#themModal" data-toggle="modal">Thêm mới</button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Mã vé</th>
-                                            <th>Ngày tạo</th>
-                                            <th>Trạng thái hoạt động</th>
+                                            <th>Tên khu để xe</th>
+                                            <th>Loại xe</th>
                                             <th>Xử lý</th>
 
                                         </tr>
                                     </thead>
                                     <tbody id="tbody">
-                                        <tr>
-                                            <td>1</td>
-                                            <td>V1010</td>
-                                            <td>22/12/2019</td>
-                                            <td><i class="fas fa-toggle-on" style="font-size:30px"></i></td>
-                                            <td><i class="fas fa-edit"></i> </td>
+                                        @{int i = 0;}
+                                        @foreach (tbl_Khudexe kdx in @ViewBag.dskhudexe)
+                                        {
+                                            <tr>
+                                                @{i++;}
+                                                <td>@i</td>
+                                                <td>@kdx.sTenkhu</td>
+                                                <td>
+                                                    @if (kdx.tbl_Loaixe != null)
+                                                    {
+                                                        <span>@kdx.tbl_Loaixe.sTenLoaixe</span>
+                                                    }
 
-                                        </tr>
+                                                </td>
+
+                                                <td><button class="btnSua" data-toggle="modal" data-target="#suaModal" value="@kdx.PK_iKhuID"><i class="fas fa-edit"></i></button> <button id="btnXoa" value="@kdx.PK_iKhuID"><i class=" fas fa-trash-alt"></i></button> </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -165,7 +281,89 @@
             </footer>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+
+    <!--Modal thêm khu để xe -->
+    <div class="modal fade" id="themModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm khu để xe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputTenkhu">Tên khu để xe </label>
+                            <input class="form-control py-4" id="inputTenkhu" type="text" placeholder="Nhập tên khu để xe" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputLoaixe">Loại xe</label>
+
+
+                            <select style="padding:11px; border: 1px solid #d7d3d3" id="dllLoaixe">
+                                <option>--- Chọn loại xe ---</option>
+                                @foreach (tbl_Loaixe lx in @ViewBag.dsloaixe)
+                                {
+                                    <option id="@lx.PK_iLoaixeID">@lx.sTenLoaixe </option>
+                                }
+                            </select>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btnTaomoi" class="btn btn-primary">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Moal sửa khu đề xe-->
+    <div class="modal fade" id="suaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa thông tin khu để xe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputTenkhuSua">Tên khu để xe </label>
+                            <input class="form-control py-4" id="inputTenkhuSua" type="text" placeholder="Nhập tên khu để xe" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputLoaixe">Loại xe</label>
+
+
+                            <select style="padding:11px; border: 1px solid #d7d3d3" id="dllLoaixeSua">
+                                <option>--- Chọn loại xe ---</option>
+                                @foreach (tbl_Loaixe lx in @ViewBag.dsloaixe)
+                                {
+                                    <option id="@lx.PK_iLoaixeID" value="@lx.PK_iLoaixeID">@lx.sTenLoaixe </option>
+                                }
+                            </select>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" id="btnLuu" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

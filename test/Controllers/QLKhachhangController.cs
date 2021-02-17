@@ -14,6 +14,7 @@ namespace test.Controllers
         public ActionResult Index()
         {
             tbl_Khachhang khachhang = new tbl_Khachhang();
+            tbl_Loaixe loaixe = new tbl_Loaixe();
             ViewBag.danhsachKhachhang = khachhang.GetKhachhangByPK(0);
             return View();
         }

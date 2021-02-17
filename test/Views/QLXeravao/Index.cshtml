@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -73,7 +74,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a href="@Url.Action("Index","QLXeravao")"
+                <a href="@Url.Action("Index","Xeravao")"
                    class="nav-link collapsed"> <i class="fas fa-fw fa-cog"></i>Quản lý xe ra vào</a>
 
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -369,7 +370,84 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <h1>Quản lý xe ra vào</h1>
+                            <div class="row">
+                                <div class="col-lg-6" style="border-right: 1px solid black; height:600px">
+                                    <p><img id="output" width="400" style="border: 1px solid black" /></p>
+                                    <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+                                    <p><label for="file" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                                    <script>
+                                        var loadFile = function (event) {
+                                            var image = document.getElementById('output');
+                                            image.src = URL.createObjectURL(event.target.files[0]);
+
+                                        };
+                                    </script>
+                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px">Quét</button>
+                                    <h3>Thông tin xe vào</h3>
+                                    <hr />
+                                    <label>Biển số xe vào</label>
+                                    <input type="text" id="txtBiensoxe" />
+                                    <input type="hidden" id="pathImage" />
+                                    <button type="button" id="btnluuxevao" onclick="uploadFile(event)" class="btn btn-warning">Lưu</button>
+                                    <script>
+                                        var uploadFile = function (event) {
+                                            var fileInput = document.getElementById('file');
+                                            var formdata = new FormData(); //FormData object
+                                            //Iterating through each files selected in fileInput
+
+                                            formdata.append(fileInput.files[0], fileInput.files[0]);
+
+                                            //Creating an XMLHttpRequest and sending
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', '/QLXeravao/Upload');
+                                            xhr.send(formdata);
+                                            xhr.onreadystatechange = function () {
+                                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                                    //alert(xhr.responseText);
+                                                    $("#pathImage").val(xhr.responseText);
+                                                }
+                                            }
+                                            return false;
+
+                                        };
+                                    </script>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p><img id="outputxera" width="400" style="border: 1px solid black" /></p>
+                                    <p><input type="file" accept="image/*" name="image1" id="file1" onchange="loadFileImage (event)" style="display: none;"></p>
+                                    <p><label for="file1" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                                    <script>
+                                        var loadFileImage = function (event) {
+                                            var image1 = document.getElementById('outputxera');
+                                            image1.src = URL.createObjectURL(event.target.files[0]);
+                                        };
+                                    </script>
+                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px">Quét</button>
+                                    <h3>Thông tin xe ra</h3>
+                                    <hr />
+                                    <label>Biển số xe ra</label>
+                                    <input type="text" id="txtBiensoxera" />
+
+                                    <button type="button" id="btnluuxera" class="btn btn-warning">Kiểm tra</button>
+                                </div>
+                            </div>
+                        </main>
+                        <footer class="py-4 bg-light mt-auto">
+                            <div class="container-fluid">
+                                <div class="d-flex align-items-center justify-content-between small">
+                                    <div class="text-muted">Copyright &copy; DATN Hali 2021</div>
+                                    <div>
+                                        <a href="#">Chính sách bảo mật</a>
+                                        &middot;
+                                        <a href="#">Điều khoản &amp; Điều kiện</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -436,3 +514,12 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+

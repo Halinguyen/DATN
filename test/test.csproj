@@ -135,6 +135,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PhanquyenController.cs" />
     <Compile Include="Controllers\QLKhachhangController.cs" />
+    <Compile Include="Controllers\QLLoaixeController.cs" />
+    <Compile Include="Controllers\QLXeravaoController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TrangchuChungController.cs" />
     <Compile Include="Controllers\TrangchuKhachhangController.cs" />
@@ -145,6 +147,7 @@
     </Compile>
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\obj\khachhangobj.cs" />
+    <Compile Include="Models\obj\Response.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\tbl_Calam.cs" />
     <Compile Include="Models\tbl_Calam_Nhanvien.cs" />
@@ -234,6 +237,8 @@
     <None Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Phanquyen\Index.cshtml" />
     <Content Include="Views\QLKhachhang\Index.cshtml" />
+    <Content Include="Views\QLLoaixe\Index.cshtml" />
+    <Content Include="Views\QLXeravao\Index.cshtml" />
     <None Include="Views\Register\Index.cshtml" />
     <None Include="Views\TrangchuChung\Index.cshtml" />
     <None Include="Views\TrangchuNhanvien\Index.cshtml" />

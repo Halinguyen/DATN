@@ -21,11 +21,11 @@ namespace test.Models
         [Key]
         public long PK_iVeID { get; set; }
 
-        public tbl_Ve(string pK_iVeID, string sMave, string dNgaytao, string bTrangthai, string tNgayhethan)
+        public tbl_Ve(string pK_iVeID, string sMave, string tNgaytao, string bTrangthai, string tNgayhethan)
         {
             PK_iVeID = Convert.ToInt64(pK_iVeID);
             this.sMave = sMave;
-            this.dNgaytao = Convert.ToDateTime(dNgaytao);
+            this.tNgaytao = Convert.ToDateTime(tNgaytao);
             this.bTrangthai = Convert.ToBoolean(bTrangthai);
             this.tNgayhethan = Convert.ToDateTime(tNgayhethan);
         }
@@ -34,7 +34,7 @@ namespace test.Models
         [StringLength(10)]
         public string sMave { get; set; }
 
-        public DateTime dNgaytao { get; set; }
+        public DateTime tNgaytao { get; set; }
 
         public bool bTrangthai { get; set; }
         public DateTime tNgayhethan { get; set; }
