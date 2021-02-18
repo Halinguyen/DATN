@@ -22,6 +22,7 @@ namespace test.Models
         public short FK_iLoaixeID { get; set; }
         public string sAnhxe { get; set; }
 
+        public long FK_iVeID { get; set; }
         public virtual tbl_Loaixe tbl_Loaixe { get; set; }
        
 
@@ -33,12 +34,13 @@ namespace test.Models
 
         }
 
-        public tbl_Xe(string pK_iXeID, string sBiensoxe, string fK_iLoaixeID, string sAnhxe)
+        public tbl_Xe(string pK_iXeID, string sBiensoxe, string fK_iLoaixeID, string sAnhxe, string fk_iVeID)
         {
             PK_iXeID = Convert.ToInt64(pK_iXeID);
             this.sBiensoxe = sBiensoxe;
             FK_iLoaixeID = Convert.ToInt16(fK_iLoaixeID);
             this.sAnhxe = sAnhxe;
+            FK_iVeID = Convert.ToInt64(fk_iVeID);
         }
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
@@ -63,7 +65,8 @@ namespace test.Models
                             dar["PK_iXeID"].ToString(),
                             dar["sBiensoxe"].ToString(),
                             dar["FK_iLoaixeID"].ToString(),
-                            dar["sAnhxe"].ToString()
+                            dar["sAnhxe"].ToString(),
+                            dar["FK_iVeID"].ToString()
                         );
                         dsXe.Add(xe);
                     }
@@ -98,7 +101,8 @@ namespace test.Models
                             dar["PK_iXeID"].ToString(),
                             dar["sBiensoxe"].ToString(),
                             dar["FK_iLoaixeID"].ToString(),
-                             dar["sAnhxe"].ToString()
+                            dar["sAnhxe"].ToString(),
+                            dar["FK_iVeID"].ToString()
                         );
                         dsXe.Add(xe);
                     }

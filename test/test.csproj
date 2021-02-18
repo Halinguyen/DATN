@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaocaoController.cs" />
+    <Compile Include="Controllers\ChitietveController.cs" />
     <Compile Include="Controllers\DSKhudexeController.cs" />
     <Compile Include="Controllers\DSNhanvienController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,8 +147,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\obj\Chitietve.cs" />
     <Compile Include="Models\obj\khachhangobj.cs" />
-    <Compile Include="Models\obj\Response.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\tbl_Calam.cs" />
     <Compile Include="Models\tbl_Calam_Nhanvien.cs" />
@@ -230,6 +231,7 @@
     <Content Include="Views\DSNhanvien\Index.cshtml" />
     <Content Include="Views\DSKhudexe\Index.cshtml" />
     <Content Include="Views\Baocao\Index.cshtml" />
+    <Content Include="Views\Chitietve\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\sb-admin-2.min.js" />

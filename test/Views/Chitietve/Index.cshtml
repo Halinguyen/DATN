@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using test.Models;
+@using test.Models.obj;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -79,7 +81,7 @@
                    class="nav-link collapsed">
                     <i class="fas fa-fw fa-folder"></i>
                     Quản lý khách hàng
-                </a>               
+                </a>
             </li>
 
             <!-- Nav Item - Charts -->
@@ -334,8 +336,60 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Thông tin vé xe của khách hàng
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <button type="button" class="btn btn-success" style="margin-bottom: 20px;" data-toggle="modal" data-target="#exampleModal">Thêm mới</button>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã vé xe</th>
+                                            <th>Loại xe</th>
+                                            <th>Biển số xe</th>
+                                            <th>Hình ảnh xe</th>
+                                            <th>Ngày đăng ký</th>
+                                            <th>Ngày hết hạn</th>
+                                            <th>Trạng thái</th>                                          
+                                            <th>Xử lý</th>
 
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        @foreach (tbl_Xeravao xerv in @ViewBag.danhsachXeravao)
+                                        {
+                                            <tr>
+                                               
+                                                <td>
+                                                    @if(xerv.tbl_Ve != null)
+                                                    {
+                                                        <span>@xerv.tbl_Ve.sMave</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    if(@xerv.tbl_Xe.tbl_Loaixe != null){
+                                                    <span>@xerv.tbl_Xe.tbl_Loaixe.sTenLoaixe </span>
+                                                    }
+                                                </td>
+                                                <td>@xerv.tbl_Xe.sBiensoxe</td>
+                                                <td>@xerv.tbl_Xe.sAnhxe</td>
+                                                <td>@xerv.tbl_Ve.tNgaytao</td>
+                                                <td>@xerv.tbl_Ve.tNgayhethan</td>
+                                                <td>
+                                                    @xerv.tbl_Ve.bTrangthai
+                                                </td>
+                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@xerv.tbl_Ve.bTrangthai"><i class="fas fa-edit"></i></button> <button class="btnXoa" maXoa="@xerv.tbl_Ve.bTrangthai"><i class=" fas fa-trash-alt"></i></button> <button class="btnChitiet" mavexe="@xerv.tbl_Ve.bTrangthai"><i class="fas fa-info-circle"></i></button> </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -401,3 +455,4 @@
 </body>
 
 </html>
+

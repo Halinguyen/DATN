@@ -385,21 +385,12 @@
 
                                         };
                                     </script>
-                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px">Quét</button>
-                                    <h3>Thông tin xe vào</h3>
-                                    <hr />
-                                    <label>Biển số xe vào</label>
-                                    <input type="text" id="txtBiensoxe" />
-                                    <input type="hidden" id="pathImage" />
-                                    <button type="button" id="btnluuxevao" onclick="uploadFile(event)" class="btn btn-warning">Lưu</button>
+                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px" onclick="uploadFile(event)">Quét</button>
                                     <script>
                                         var uploadFile = function (event) {
                                             var fileInput = document.getElementById('file');
                                             var formdata = new FormData(); //FormData object
-                                            //Iterating through each files selected in fileInput
-
                                             formdata.append(fileInput.files[0], fileInput.files[0]);
-
                                             //Creating an XMLHttpRequest and sending
                                             var xhr = new XMLHttpRequest();
                                             xhr.open('POST', '/QLXeravao/Upload');
@@ -414,6 +405,13 @@
 
                                         };
                                     </script>
+                                    <h3>Thông tin xe vào</h3>
+                                    <hr />
+                                    <label>Biển số xe vào</label>
+                                    <input type="text" id="txtBiensoxe" />
+                                    <input type="hidden" id="pathImage" />
+                                    <button type="button" id="btnluuxevao" class="btn btn-warning">Lưu</button>
+
                                 </div>
                                 <div class="col-lg-6">
                                     <p><img id="outputxera" width="400" style="border: 1px solid black" /></p>

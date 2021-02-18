@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using test.Models;
-using test.Models.obj;
 
 namespace test.Controllers
 {
@@ -13,9 +12,12 @@ namespace test.Controllers
         // GET: QLKhachhang
         public ActionResult Index()
         {
-            tbl_Khachhang khachhang = new tbl_Khachhang();
-            tbl_Loaixe loaixe = new tbl_Loaixe();
-            ViewBag.danhsachKhachhang = khachhang.GetKhachhangByPK(0);
+            Database db = new Database();
+            List<tbl_Khachhang> dskhachhang = db.tbl_Khachhang.ToList();
+            ViewBag.danhsachKhachhang = dskhachhang;
+            List<tbl_Ve> dsvexe = db.tbl_Ve.ToList();
+           
+            ViewBag.danhsachve = dsvexe;
             return View();
         }
         public JsonResult ThemKhachhang()
@@ -85,15 +87,16 @@ namespace test.Controllers
 
 
         }
-        public string GetKhachhang()
-        {
-            long khachhangID = Convert.ToInt64(Request["makhachhang"]);
-            tbl_Khachhang kh = new tbl_Khachhang();
-            List<khachhangobj> dsKhachhang = kh.GetKhachhangByPK(khachhangID);
-            string ketqua = dsKhachhang[0].sHoten + "#" + dsKhachhang[0].sSodienthoai + "#" + dsKhachhang[0].sDiachi + "#" +
-                dsKhachhang[0].bGioitinh + "#" + dsKhachhang[0].Username + "#" + dsKhachhang[0].sSoCMND + "#" + dsKhachhang[0].Soseri;
-            return ketqua;
+        //public string GetKhachhang()
+        //{
+        //    long khachhangID = Convert.ToInt64(Request["makhachhang"]);
+        //    tbl_Khachhang kh = new tbl_Khachhang();
+        //    List<khachhangobj> dsKhachhang = kh.GetKhachhangByPK(khachhangID);
+        //    string ketqua = dsKhachhang[0].sHoten + "#" + dsKhachhang[0].sSodienthoai + "#" + dsKhachhang[0].sDiachi + "#" +
+        //        dsKhachhang[0].bGioitinh + "#" + dsKhachhang[0].Username + "#" + dsKhachhang[0].sSoCMND + "#" + dsKhachhang[0].Soseri;
+        //    return ketqua;
 
-        }
+        //}
+       
     }
 }

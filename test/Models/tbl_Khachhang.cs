@@ -15,7 +15,7 @@ namespace test.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Khachhang()
         {
-            tbl_Hoadon = new HashSet<tbl_Hoadon>();
+           
         }
 
         public tbl_Khachhang(string pK_iKhachhangID, string sHoten, string sSodienthoai, string sDiachi, string bGioitinh, string fK_iTaikhoanID, string sSoCMND, string fK_iVeID)

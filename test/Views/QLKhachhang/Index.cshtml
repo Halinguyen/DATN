@@ -1,4 +1,4 @@
-﻿
+﻿@using test.Models;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,8 +57,8 @@
 
 
             //Xóa
-            $(document).on('click', '#btnXoa', function () {
-                var makhachhang = $('#btnXoa').attr('maXoa');
+            $(document).on('click', '.btnXoa', function () {
+                var makhachhang = $('.btnXoa').attr('maXoa');
                 const data = {
                     makhachhang
                 }
@@ -79,7 +79,7 @@
 
             $(document).on('click', '.btnSua', function () {
                 var makhachhang = $('.btnSua').attr('maSua');
-                
+
                 const data = {
                     makhachhang
                 }
@@ -94,7 +94,7 @@
                         $('#inputSodienthoaisua').val(arrKetqua[1]);
                         $('#inputDiachisua').val(arrKetqua[2]);
                         $('input[name="Gioitinhsua"]').attr("checked", arrKetqua[3]);
-                       
+
                         $('#inputTaikhoansua').val(arrKetqua[4]);
                         $('#inputCMNDsua').val(arrKetqua[5]);
                         $('#inputSerisua').val(arrKetqua[6]);
@@ -105,7 +105,7 @@
                 });
 
             });
-            
+
             // Sửa
             $(document).on('click', '#btnLuuSua', function () {
                 var makhachhang = $('#btnSua').attr('maSua');
@@ -126,6 +126,29 @@
                 }).done(function (res) {
                     if (res) {
                         window.location.href = "QLKhachhang/Index";
+                    }
+                    else {
+                        alert('Xóa khách hàng thất bại :(');
+                    }
+                });
+
+            });
+
+
+            // xem chi tiết vé
+            $(document).on('click', '.btnChitiet', function () {
+               // window.location.href = "Chitietve/Index";
+                var mavexe = $('.btnChitiet').attr('mavexe');
+                const data = {
+                    mavexe
+                }
+                $.ajax({
+                    url: location.pathname + '/XemChitietve',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        console.log(res);
                     }
                     else {
                         alert('Xóa khách hàng thất bại :(');
@@ -223,18 +246,6 @@
                     <i class="fas fa-fw fa-folder"></i>
                     Quản lý khách hàng
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Charts -->
@@ -500,6 +511,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>STT</th>
                                             <th>Họ và tên</th>
                                             <th>Số điện thoại</th>
                                             <th>Địa chỉ</th>
@@ -509,20 +521,34 @@
                                             <th> Mã vé xe</th>
                                             <th>Xử lý</th>
 
-                                        </tr>
+                                        </tr>                                     
                                     </thead>
                                     <tbody id="tbody">
-                                        @foreach (var kh in @ViewBag.danhsachKhachhang)
+                                        @{ int i = 0;}
+                                        @foreach (tbl_Khachhang kh in @ViewBag.danhsachKhachhang)
                                         {
                                             <tr>
+                                                @{ i++;}
+                                                <td>@i</td>
                                                 <td>@kh.sHoten</td>
                                                 <td>@kh.sSodienthoai</td>
                                                 <td>@kh.sDiachi</td>
                                                 <td>@kh.bGioitinh</td>
-                                                <td>@kh.Username</td>
+                                                <td>
+                                                    @if(kh.tbl_Taikhoan != null)
+                                                    {
+                                                        <span>@kh.tbl_Taikhoan.sUsername</span>
+                                                    }
+                                                </td>
                                                 <td>@kh.sSoCMND</td>
-                                                <th>@kh.Soseri</th>
-                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button id="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> </td>
+                                                <td>
+
+                                                    @if(kh.tbl_Ve != null)
+                                                    {
+                                                        <span>@kh.tbl_Ve.sMave</span>
+                                                    }
+                                                </td>
+                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button class="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> <button class="btnChitiet" mavexe="@kh.tbl_Ve.PK_iVeID"><i class="fas fa-info-circle"></i></button> </td>
 
                                             </tr>
                                         }
@@ -648,7 +674,7 @@
                     <form>
                         <div class="form-group">
                             <label class="small mb-1" for="inputHotensua">Họ tên khách hàng</label>
-                            <input class="form-control py-4" id="inputHotensua" type="text" placeholder="Nhập họ tên khách hàng" required  />
+                            <input class="form-control py-4" id="inputHotensua" type="text" placeholder="Nhập họ tên khách hàng" required />
                         </div>
                         <div class="form-group">
                             <label class="small mb-1" for="inputSodienthoaisua">Số điện thoại</label>

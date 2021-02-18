@@ -159,7 +159,6 @@ namespace test.Models
             modelBuilder.Entity<tbl_Ve>()
                 .HasMany(e => e.tbl_Xeravao)
                 .WithRequired(e => e.tbl_Ve)
-                .HasForeignKey(e => e.FK_iVeID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<tbl_Xe>()

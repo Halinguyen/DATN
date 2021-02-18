@@ -16,8 +16,6 @@
 
         public long FK_iXeID { get; set; }
 
-        public long FK_iVeID { get; set; }
-
         public short FK_iNhanvienID { get; set; }
 
         public DateTime? dGiovao { get; set; }
@@ -35,11 +33,10 @@
 
         }
 
-        public tbl_Xeravao(string pK_iXeravaoID, string fK_iXeID, string fK_iVeID, string fK_iNhanvienID, string dGiovao, string dGiora)
+        public tbl_Xeravao(string pK_iXeravaoID, string fK_iXeID, string fK_iNhanvienID, string dGiovao, string dGiora)
         {
             PK_iXeravaoID = Convert.ToInt64(pK_iXeravaoID);
             FK_iXeID = Convert.ToInt64(fK_iXeID);
-            FK_iVeID = Convert.ToInt64(fK_iVeID);
             FK_iNhanvienID = Convert.ToInt16(fK_iNhanvienID);
             this.dGiovao = Convert.ToDateTime(dGiovao);
             this.dGiora = Convert.ToDateTime(dGiora);
@@ -65,7 +62,6 @@
                         tbl_Xeravao xeravao = new tbl_Xeravao(
                             dar["PK_iXeravaoID"].ToString(),
                             dar["FK_iXeID"].ToString(),
-                            dar["FK_iVeID"].ToString(),
                             dar["FK_iNhanvienID"].ToString(),
                             dar["dGiovao"].ToString(),
                             dar["dGiora"].ToString()
@@ -96,7 +92,6 @@
                 SqlCommand cmd = new SqlCommand("sp_ThemXeravao", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@maxe", xeID);
-                cmd.Parameters.AddWithValue("@mave", veID);
                 cmd.Parameters.AddWithValue("@manhanvien", nhanvienID);
                 cmd.Parameters.AddWithValue("@giovao", DateTime.Now);
                 cmd.Parameters.AddWithValue("@giora", DateTime.Now);
@@ -134,7 +129,6 @@
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@maxeravao", xeravaoID);
                 cmd.Parameters.AddWithValue("@maxe", xeID);
-                cmd.Parameters.AddWithValue("@mave", veID);
                 cmd.Parameters.AddWithValue("@manhanvien", nhanvienID);
                 cmd.Parameters.AddWithValue("@giovao", giovao);
                 cmd.Parameters.AddWithValue("@giora", giora);
@@ -165,7 +159,7 @@
             {
                 SqlCommand cmd = new SqlCommand("sp_XoaXeravao", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@@maxeravao", xeravaoID);
+                cmd.Parameters.AddWithValue("@maxeravao", xeravaoID);
                 conn.Open();
                 int i = cmd.ExecuteNonQuery();
                 if (i > 0)
@@ -205,7 +199,6 @@
                         tbl_Xeravao xeravao = new tbl_Xeravao(
                             dar["PK_iXeravaoID"].ToString(),
                             dar["FK_iXeID"].ToString(),
-                            dar["FK_iVeID"].ToString(),
                             dar["FK_iNhanvienID"].ToString(),
                             dar["dGiovao"].ToString(),
                             dar["dGiora"].ToString()
@@ -244,8 +237,7 @@
                     {
                         tbl_Xeravao xeravao = new tbl_Xeravao(
                             dar["PK_iXeravaoID"].ToString(),
-                            dar["FK_iXeID"].ToString(),
-                            dar["FK_iVeID"].ToString(),
+                            dar["FK_iXeID"].ToString(),                          
                             dar["FK_iNhanvienID"].ToString(),
                             dar["dGiovao"].ToString(),
                             dar["dGiora"].ToString()
