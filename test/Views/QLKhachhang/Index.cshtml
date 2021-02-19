@@ -21,6 +21,11 @@
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+        .modal-dialog{
+            max-width: 950px;
+        }
+    </style>
     <script>
         var hoten, sodienthoai, diachi, gioitinh, tentaikhoan, socmnd, masove;
         $(document).ready(function () {
@@ -137,7 +142,6 @@
 
             // xem chi tiết vé
             $(document).on('click', '.btnChitiet', function () {
-               // window.location.href = "Chitietve/Index";
                 var mavexe = $('.btnChitiet').attr('mavexe');
                 const data = {
                     mavexe
@@ -148,14 +152,21 @@
                     data: data,
                 }).done(function (res) {
                     if (res) {
-                        console.log(res);
+                        var arrKetqua = res.split("#");
+                        $('#mavexe').text(arrKetqua[0]);
+                        $('#loaixe').text(arrKetqua[1]);
+                        $('#bsx').text(arrKetqua[2]);
+                        $('#image').text(arrKetqua[3]);
+                        $('#dngaydki').text(arrKetqua[4]);
+                        $('#dngayhh').text(arrKetqua[5]);
+                        $('#trangthai').text(arrKetqua[6]);
                     }
                     else {
-                        alert('Xóa khách hàng thất bại :(');
+                        alert('Failed :(');
                     }
                 });
 
-            });
+            }); 
         });
 
 
@@ -521,11 +532,11 @@
                                             <th> Mã vé xe</th>
                                             <th>Xử lý</th>
 
-                                        </tr>                                     
+                                        </tr>
                                     </thead>
                                     <tbody id="tbody">
                                         @{ int i = 0;}
-                                        @foreach (tbl_Khachhang kh in @ViewBag.danhsachKhachhang)
+                                        @foreach (var kh in @ViewBag.danhsachKhachhang)
                                         {
                                             <tr>
                                                 @{ i++;}
@@ -535,20 +546,14 @@
                                                 <td>@kh.sDiachi</td>
                                                 <td>@kh.bGioitinh</td>
                                                 <td>
-                                                    @if(kh.tbl_Taikhoan != null)
-                                                    {
-                                                        <span>@kh.tbl_Taikhoan.sUsername</span>
-                                                    }
+                                                    @kh.Username
                                                 </td>
                                                 <td>@kh.sSoCMND</td>
                                                 <td>
 
-                                                    @if(kh.tbl_Ve != null)
-                                                    {
-                                                        <span>@kh.tbl_Ve.sMave</span>
-                                                    }
+                                                    @kh.Soseri
                                                 </td>
-                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button class="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> <button class="btnChitiet" mavexe="@kh.tbl_Ve.PK_iVeID"><i class="fas fa-info-circle"></i></button> </td>
+                                                <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button class="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> <button class="btnChitiet" mavexe="@kh.Soseri" data-toggle="modal" data-target="#ModalDkive"><i class="fas fa-info-circle"></i></button> </td>
 
                                             </tr>
                                         }
@@ -708,6 +713,55 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     <button type="button" id="btnLuuSua" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal đăng ký vé-->
+
+    <div class="modal fade" id="ModalDkive" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin vé xe khách hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã vé xe</th>
+                                <th>Loại xe</th>
+                                <th>Biển số xe</th>
+                                <th>Hình ảnh xe</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Ngày hết hạn</th>
+                                <th>Trạng thái</th>
+                                <th>Xử lý</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            <tr>
+                                <td id="mavexe"></td>
+                                <td id="loaixe"></td>
+                                <td id="bsx"></td>
+                                <td id="image"></td>
+                                <td id="dngaydki"></td>
+                                <td id="dngayhh"></td>
+                                <td id="trangthai"></td>
+                                <td id="">Gia hạn</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

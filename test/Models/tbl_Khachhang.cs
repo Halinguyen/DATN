@@ -9,6 +9,7 @@ namespace test.Models
     using System.Data.Entity.Spatial;
     using System.Data.SqlClient;
     using test.Models.obj;
+    using System.Linq;
 
     public partial class tbl_Khachhang
     {

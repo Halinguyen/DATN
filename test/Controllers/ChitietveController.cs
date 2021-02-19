@@ -32,14 +32,15 @@ namespace test.Controllers
         }
         public JsonResult XemChitietve()
         {
-            long vexeID = Convert.ToInt64(Request["mavexe"]);
+            string soSeri = Request["mavexe"];
             Chitietve ctv = new Chitietve();
             List<Chitietve> dsctv = new List<Chitietve>();
-
-
-            if (vexeID > 0)
+            tbl_Ve ve = new tbl_Ve();
+            List<tbl_Ve> dsvexe = ve.GetVeBySoSeri(soSeri);
+            if (dsvexe.Count > 0)
             {
-                dsctv = ctv.GetChitietVeByVexeID(vexeID);
+                dsctv = ctv.GetChitietVeByVexeID(dsvexe[0].PK_iVeID);
+
             }
             var jsonSerialiser = new JavaScriptSerializer();
             var result = jsonSerialiser.Serialize(dsctv);

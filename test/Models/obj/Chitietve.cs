@@ -9,32 +9,45 @@ using test.Models;
 
 namespace test.Models.obj
 {
-    public class Chitietve:tbl_Xe
+    public class Chitietve : tbl_Xe
     {
+        string format = "dd-MM-yyyy";
         string tenLoaixe;
         string mavexe;
 
-        public Chitietve(string pK_iXeID, string sBiensoxe, string fK_iLoaixeID, string sAnhxe, string fk_iVeID, string tenLoaixe,string mavexe)
+        public Chitietve(string pK_iXeID, string sBiensoxe, string fK_iLoaixeID, string sAnhxe, string fk_iVeID, string mave, string mavexe, string ngaydangky, string trangthai, string ngayhethan, string maloaixe, string tenLoaixe)
         {
             PK_iXeID = Convert.ToInt64(pK_iXeID);
             this.sBiensoxe = sBiensoxe;
             FK_iLoaixeID = Convert.ToInt16(fK_iLoaixeID);
             this.sAnhxe = sAnhxe;
             FK_iVeID = Convert.ToInt64(fk_iVeID);
-            this.TenLoaixe = tenLoaixe;
-            this.Mavexe = mavexe;
+            this.PK_iVeID = Convert.ToInt64(mave);
+            this.sMave = mavexe;
+            this.tNgaytao = Convert.ToDateTime(ngaydangky);           
+            this.bTrangthai = Convert.ToBoolean(trangthai);
+            this.tNgayhethan = Convert.ToDateTime(ngayhethan);
+            this.PK_iLoaixeID = Convert.ToInt16(maloaixe);          
+            this.sTenLoaixe = tenLoaixe;
+
         }
         public Chitietve() { }
 
-        public string TenLoaixe { get => tenLoaixe; set => tenLoaixe = value; }
-        public string Mavexe { get => mavexe; set => mavexe = value; }
+        public string sTenLoaixe { get => tenLoaixe; set => tenLoaixe = value; }
+        public string sMave { get => mavexe; set => mavexe = value; }
+        public DateTime tNgaytao { get; set; }
+        public DateTime tNgayhethan { get; set; }
+        public bool bTrangthai { get; set; }
+        public long PK_iVeID { get; set; }
+        public short PK_iLoaixeID { get; set; }
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
 
-        public List<Chitietve> GetChitietVeByVexeID (long vexeID)
+        public List<Chitietve> GetChitietVeByVexeID(long vexeID)
         {
+          
             List<Chitietve> dschitietve = new List<Chitietve>();
-            if(vexeID > 0)
+            if (vexeID > 0)
             {
                 try
                 {
@@ -55,17 +68,22 @@ namespace test.Models.obj
                                 dar["FK_iLoaixeID"].ToString(),
                                 dar["sAnhxe"].ToString(),
                                 dar["FK_iVeID"].ToString(),
-                                dar["TenLoaixe"].ToString(),
-                                dar["Mavexe"].ToString()
+                                dar["PK_iVeID"].ToString(),
+                                 dar["sMave"].ToString(),
+                                dar["tNgaytao"].ToString(),
+                                dar["bTrangthai"].ToString(),
+                               dar["tNgayhethan"].ToString(),
+                                 dar["PK_iLoaixeID"].ToString(),
+                                dar["sTenLoaixe"].ToString()
                             );
                             dschitietve.Add(ctve);
                         }
 
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    throw new ApplicationException("error" + ex);
                 }
             }
             return dschitietve;
