@@ -13,6 +13,7 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="~/Content/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -20,6 +21,104 @@
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+        #alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            display: none;
+            width: 600px;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .closebtn:hover {
+                color: black;
+            }
+    </style>
+    <script>
+        var name_image = '';
+        var image_ra = '';
+        $(document).ready(function () {
+            $(document).on('click', '#btnQuetvao', function () {
+                const data = {
+                    name_image
+                }
+                $.ajax({
+                    url: location.pathname + '/NhandienBsx',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        obj = JSON.parse(res);
+                        $("#txtBiensoxe").val(obj.data);
+                    }
+                    else {
+                        alert('Failed');
+                    }
+                });
+            });
+            $(document).on('click', '#btnQuetra', function () {
+                const data = {
+                    name_image
+                }
+                $.ajax({
+                    url: location.pathname + '/NhandienBsx',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        obj = JSON.parse(res);
+                        $("#txtBiensoxera").val(obj.data);
+                        var bsxvao = $("#txtBiensoxe").val();
+                        var bsxra = $("#txtBiensoxera").val();
+                        if (bsxra == bsxvao) {
+                            alert('Hợp lệ :)');
+                        }
+                        else {
+                            $('#alert').css('display', 'inline-block');
+                                $('#alert').css('margin-left', '374px');
+                                $('#alert').css('position', 'absolute');
+                                $('#alert').css('margin-top', '-600px');
+                        }
+                    }
+                    else {
+                        alert('Failed');
+                    }
+                });
+            });
+
+            // lưu thông tin xe vào db
+            $(document).on('click', '#btnluuxevao', function () {
+                const data = {
+                   
+                }
+                $.ajax({
+                    url: location.pathname + '/NhandienBsx',
+                    type: 'POST',
+                    data: data,
+                }).done(function (res) {
+                    if (res) {
+                        
+                    }
+                    else {
+                        alert('Failed');
+                    }
+                });
+            });
+        });
+    </script>
+
+
 
 </head>
 
@@ -376,33 +475,27 @@
                             <div class="row">
                                 <div class="col-lg-6" style="border-right: 1px solid black; height:600px">
                                     <p><img id="output" width="400" style="border: 1px solid black" /></p>
-                                    <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
-                                    <p><label for="file" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                                    <p><input type="file" accept="image/*" name="image" id="file2" onchange="loadFile(event)" style="display: none;"></p>
+                                    <p><label for="file2" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
                                     <script>
                                         var loadFile = function (event) {
                                             var image = document.getElementById('output');
                                             image.src = URL.createObjectURL(event.target.files[0]);
+                                            var file = event.target.files[0];
+                                            var filename = file.name;
+                                            name_image = filename;
 
                                         };
                                     </script>
-                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px" onclick="uploadFile(event)">Quét</button>
+                                    <button type="button" id="btnQuetvao" class="btn btn-primary" style="margin-bottom:20px" onchange="uploadFile(event)">Quét</button>
                                     <script>
+      
                                         var uploadFile = function (event) {
-                                            var fileInput = document.getElementById('file');
-                                            var formdata = new FormData(); //FormData object
-                                            formdata.append(fileInput.files[0], fileInput.files[0]);
-                                            //Creating an XMLHttpRequest and sending
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('POST', '/QLXeravao/Upload');
-                                            xhr.send(formdata);
-                                            xhr.onreadystatechange = function () {
-                                                if (xhr.readyState == 4 && xhr.status == 200) {
-                                                    //alert(xhr.responseText);
-                                                    $("#pathImage").val(xhr.responseText);
-                                                }
-                                            }
-                                            return false;
-
+                                            var image2 = document.getElementById('output');
+                                            image2.src = URL.createObjectURL(event.target.files[0]);
+                                            var file = event.target.files[0];
+                                            var filename = file.name;
+                                            name_image = filename;
                                         };
                                     </script>
                                     <h3>Thông tin xe vào</h3>
@@ -421,9 +514,14 @@
                                         var loadFileImage = function (event) {
                                             var image1 = document.getElementById('outputxera');
                                             image1.src = URL.createObjectURL(event.target.files[0]);
+                                            var file1 = event.target.files[0];
+                                            var filename1 = file1.name;
+                                            name_image = filename1;
+
+
                                         };
                                     </script>
-                                    <button type="button" class="btn btn-primary" style="margin-bottom:20px">Quét</button>
+                                    <button type="button" id="btnQuetra" class=" btn btn-primary" style="margin-bottom:20px">Quét</button>
                                     <h3>Thông tin xe ra</h3>
                                     <hr />
                                     <label>Biển số xe ra</label>
@@ -433,18 +531,7 @@
                                 </div>
                             </div>
                         </main>
-                        <footer class="py-4 bg-light mt-auto">
-                            <div class="container-fluid">
-                                <div class="d-flex align-items-center justify-content-between small">
-                                    <div class="text-muted">Copyright &copy; DATN Hali 2021</div>
-                                    <div>
-                                        <a href="#">Chính sách bảo mật</a>
-                                        &middot;
-                                        <a href="#">Điều khoản &amp; Điều kiện</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </footer>
+
                     </div>
 
                 </div>
@@ -490,6 +577,13 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <!--div alert-->
+    <div id="alert" >
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Cảnh báo</strong> Xe ra không hợp lệ, <strong>XEM LẠI ! </strong>.
     </div>
 
     <!-- Bootstrap core JavaScript-->

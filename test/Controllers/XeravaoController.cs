@@ -24,5 +24,11 @@ namespace test.Controllers
             
             return View();
         }
+
+        public JsonResult NhandienBsx()
+        {
+            return Json(true);
+
+        }
     }
 }
