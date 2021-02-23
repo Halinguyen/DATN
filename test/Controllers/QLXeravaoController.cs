@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using test.Models;
 
 namespace test.Controllers
 {
@@ -72,6 +73,30 @@ namespace test.Controllers
             {
                 return "Exception" + ex.ToString();
             }
+        }
+
+        public bool Luuxe()
+        {
+            tbl_Xe xe = new tbl_Xe();
+            tbl_Ve ve = new tbl_Ve();
+            long vexeID = 0;
+            string biensoxe = Request["biensoxe"];
+            string hinhanh = Request["hinhanh"];
+            string mavexe = Request["mavexe"];
+            short loaixeID = Convert.ToInt16(Request["loaixe"]);
+            List<tbl_Ve> dsve = ve.GetVeBySoSeri(mavexe);
+            if(dsve.Count > 0)
+            {
+                vexeID = dsve[0].PK_iVeID;
+            }
+            if (xe.InsertXe(biensoxe, loaixeID, hinhanh, vexeID)){
+                return true;
+            }
+            else {
+                return false;
+            }
+
+
         }
     }
 }

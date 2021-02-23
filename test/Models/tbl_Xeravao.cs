@@ -84,7 +84,7 @@
         /// <param name="veID"></param>
         /// <param name="nhanvienID"></param>
         /// <returns></returns>
-        public bool Themxevao (long xeID, long veID, short nhanvienID)
+        public bool Themxevao (long xeID, short nhanvienID)
         {
             bool ketqua = false;
             try

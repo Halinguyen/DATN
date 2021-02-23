@@ -1,4 +1,4 @@
-namespace test.Models
+﻿namespace test.Models
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace test.Models
 
         public long FK_iVeID { get; set; }
         public virtual tbl_Loaixe tbl_Loaixe { get; set; }
-       
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Xeravao> tbl_Xeravao { get; set; }
@@ -114,6 +114,80 @@ namespace test.Models
 
             }
             return dsXe;
+        }
+        public bool InsertXe(string biensoxe, short loaixeID, string anhxe, long vexeID)
+        {
+            bool ketqua = false;
+            long idXe = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_InsertXe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@biensoxe", biensoxe);
+                cmd.Parameters.AddWithValue("@loaixeID", loaixeID);
+                cmd.Parameters.AddWithValue("@anhxe", anhxe);
+                cmd.Parameters.AddWithValue("@veID", vexeID);
+                conn.Open();
+                idXe = Convert.ToInt64(cmd.ExecuteScalar());
+                tbl_Xeravao xeravao = new tbl_Xeravao();
+                xeravao.Themxevao(idXe, 1);// sửa id nhân viên sau khi lấy từ session
+                ketqua = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
+        }
+
+        public bool UpdateXe(long xeID, string biensoxe, short loaixeID, string anhxe, long vexeID)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_UpdateXe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@xeID", xeID);
+                cmd.Parameters.AddWithValue("@biensoxe", biensoxe);
+                cmd.Parameters.AddWithValue("@loaixeID", loaixeID);
+                cmd.Parameters.AddWithValue("@anhxe", anhxe);
+                cmd.Parameters.AddWithValue("@veID", vexeID);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
+        }
+
+        public bool DeleteXe(long xeID)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_DeleteXe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@xeID", xeID);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
         }
 
 

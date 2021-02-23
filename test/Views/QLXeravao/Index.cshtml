@@ -99,16 +99,21 @@
 
             // lưu thông tin xe vào db
             $(document).on('click', '#btnluuxevao', function () {
+                var mavexe = $('#txtMavexe').val();
+                var hinhanh = $('#output').attr('src');
+                var biensoxe = $('#txtBiensoxe').val();
+                var loaixe = $("input[name='loaixe']:checked").val();
                 const data = {
-                   
+                   mavexe, hinhanh, biensoxe, loaixe
                 }
+                alert(data);
                 $.ajax({
-                    url: location.pathname + '/NhandienBsx',
+                    url: location.pathname + '/Luuxe',
                     type: 'POST',
                     data: data,
                 }).done(function (res) {
                     if (res) {
-                        
+                        alert('Lưu thành công');
                     }
                     else {
                         alert('Failed');
@@ -472,7 +477,12 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <h1>Quản lý xe ra vào</h1>
+                            
                             <div class="row">
+                                <div class="col-lg-12">
+                                    <label>Mã vé xe: </label>
+                                    <input type="text" id="txtMavexe" />
+                                </div>
                                 <div class="col-lg-6" style="border-right: 1px solid black; height:600px">
                                     <p><img id="output" width="400" style="border: 1px solid black" /></p>
                                     <p><input type="file" accept="image/*" name="image" id="file2" onchange="loadFile(event)" style="display: none;"></p>
@@ -489,7 +499,7 @@
                                     </script>
                                     <button type="button" id="btnQuetvao" class="btn btn-primary" style="margin-bottom:20px" onchange="uploadFile(event)">Quét</button>
                                     <script>
-      
+
                                         var uploadFile = function (event) {
                                             var image2 = document.getElementById('output');
                                             image2.src = URL.createObjectURL(event.target.files[0]);
@@ -498,6 +508,12 @@
                                             name_image = filename;
                                         };
                                     </script>
+                                    <br />
+                                    <label>Loại xe: </label>
+                                    &emsp;Xe máy&ensp;<input type="radio" value="1" name="loaixe" checked="checked" />
+                                    &emsp;Ô tô&ensp;<input type="radio" value="2" name="loaixe" />
+                                    &emsp;Xe điện&ensp;<input type="radio" value="3" name="loaixe" />
+                                    &emsp;Khác&ensp;<input type="radio" value="4" name="loaixe" />
                                     <h3>Thông tin xe vào</h3>
                                     <hr />
                                     <label>Biển số xe vào</label>
