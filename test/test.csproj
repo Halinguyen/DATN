@@ -135,8 +135,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PhanquyenController.cs" />
+    <Compile Include="Controllers\QLGiaveController.cs" />
     <Compile Include="Controllers\QLKhachhangController.cs" />
     <Compile Include="Controllers\QLLoaixeController.cs" />
+    <Compile Include="Controllers\QLQuyenController.cs" />
     <Compile Include="Controllers\QLXeController.cs" />
     <Compile Include="Controllers\QLXeravaoController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -244,6 +246,8 @@
     <Content Include="Views\QLLoaixe\Index.cshtml" />
     <Content Include="Views\QLXeravao\Index.cshtml" />
     <Content Include="Views\QLXe\Index.cshtml" />
+    <Content Include="Views\QLQuyen\Index.cshtml" />
+    <Content Include="Views\QLGiave\Index.cshtml" />
     <None Include="Views\Register\Index.cshtml" />
     <None Include="Views\TrangchuChung\Index.cshtml" />
     <None Include="Views\TrangchuNhanvien\Index.cshtml" />

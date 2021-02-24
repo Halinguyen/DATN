@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace test.Controllers
 {
-    public class TrangchuKhachhangController : Controller
+    public class QLQuyenController : Controller
     {
-        // GET: TrangchuKhachhang
+        // GET: QLQuyen
         public ActionResult Index()
         {
             if (Session["IsLogin"].Equals(true))
@@ -17,7 +17,7 @@ namespace test.Controllers
             }
             else
                 return RedirectToAction("Index", "Login");
-           
+            
         }
     }
 }

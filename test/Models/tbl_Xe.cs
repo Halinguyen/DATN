@@ -115,7 +115,7 @@
             }
             return dsXe;
         }
-        public bool InsertXe(string biensoxe, short loaixeID, string anhxe, long vexeID)
+        public bool InsertXe(string biensoxe, short loaixeID, string anhxe, long vexeID, short nhanvienID)
         {
             bool ketqua = false;
             long idXe = 0;
@@ -130,7 +130,7 @@
                 conn.Open();
                 idXe = Convert.ToInt64(cmd.ExecuteScalar());
                 tbl_Xeravao xeravao = new tbl_Xeravao();
-                xeravao.Themxevao(idXe, 1);// sửa id nhân viên sau khi lấy từ session
+                xeravao.Themxevao(idXe,nhanvienID );// sửa id nhân viên sau khi lấy từ session
                 ketqua = true;
 
 

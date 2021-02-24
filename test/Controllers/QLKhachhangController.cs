@@ -14,13 +14,19 @@ namespace test.Controllers
         // GET: QLKhachhang
         public ActionResult Index()
         {
-            Database db = new Database();
-            khachhangobj kh = new khachhangobj();
-          //  List<khachhangobj> dskhachhang = db..ToList();
-            ViewBag.danhsachKhachhang = kh.GetKhachhangByPK(0);
-            List<tbl_Ve> dsvexe = db.tbl_Ve.ToList();          
-            ViewBag.danhsachve = dsvexe;
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                Database db = new Database();
+                khachhangobj kh = new khachhangobj();
+                //  List<khachhangobj> dskhachhang = db..ToList();
+                ViewBag.danhsachKhachhang = kh.GetKhachhangByPK(0);
+                List<tbl_Ve> dsvexe = db.tbl_Ve.ToList();
+                ViewBag.danhsachve = dsvexe;
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+           
         }
         public JsonResult ThemKhachhang()
         {

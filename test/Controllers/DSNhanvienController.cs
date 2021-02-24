@@ -12,9 +12,15 @@ namespace test.Controllers
         // GET: DSNhanvien
         public ActionResult Index()
         {
-            tbl_Nhanvien nhanvien = new tbl_Nhanvien();
-            ViewBag.danhsachNhanvien = nhanvien.GetNhanvienByPK(0);
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                tbl_Nhanvien nhanvien = new tbl_Nhanvien();
+                ViewBag.danhsachNhanvien = nhanvien.GetNhanvienByPK(0);
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+           
         }
         public JsonResult ThemNhanvien()
         {

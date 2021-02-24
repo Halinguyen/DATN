@@ -149,74 +149,31 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-
-
+                        @*<div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>*@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        @Html.ActionLink("Xem danh sách nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
 
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Làm gì gì nữa
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý khu để xe</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                            </nav>
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tachometer-alt"></i>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link">@Html.ActionLink("Login", "Index", "Login")</a>
-                                        <a class="nav-link">@Html.ActionLink("Register", "Index", "Register")</a>
-                                        <a class="nav-link">@Html.ActionLink("Quên mật khẩu", "Index", "Password")</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link"> @Html.ActionLink("401 Page", "401", "Error")</a>
-                                        <a class="nav-link">@Html.ActionLink("404 Page", "404", "Error")</a>
-                                        <a class="nav-link">@Html.ActionLink("500 Page", "500", "Error")</a>
-                                    </nav>
-                                </div>
-                            </nav>
+                        @Html.ActionLink("Quản lý khu để xe", "Index", "DSKhudexe", null, new { @class = "nav-link" })
+
+
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tachometer-alt"></i>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Quản lý giá vé</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
-                        <div class="sb-sidenav-menu-heading">Quản lý báo cáo, thống kê</div>
+                        @Html.ActionLink("Quản lý quyền", "Index", "QLQuyen", null, new { @class = "nav-link" })
+
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        @Html.ActionLink("Quản lý giá vé", "Index", "QLGiave", null, new { @class = "nav-link" })
+
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        @Html.ActionLink("Báo cáo, thống kê", "Index", "Baocao", null, new { @class = "nav-link" })
                     </div>
-                </div>
-                <div class="sb-sidenav-footer">
-
                 </div>
             </nav>
         </div>

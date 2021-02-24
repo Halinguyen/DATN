@@ -11,7 +11,13 @@ namespace test.Controllers
         // GET: TrangchuNhanvien
         public ActionResult Index()
         {
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+           
         }
     }
 }

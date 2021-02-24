@@ -15,7 +15,13 @@ namespace test.Controllers
         // GET: QLXeravao
         public ActionResult Index()
         {
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+            
         }
         public JsonResult Upload()
         {
@@ -84,19 +90,18 @@ namespace test.Controllers
             string hinhanh = Request["hinhanh"];
             string mavexe = Request["mavexe"];
             short loaixeID = Convert.ToInt16(Request["loaixe"]);
+            short userID = Convert.ToInt16(Session["userID"]);
             List<tbl_Ve> dsve = ve.GetVeBySoSeri(mavexe);
             if(dsve.Count > 0)
             {
                 vexeID = dsve[0].PK_iVeID;
             }
-            if (xe.InsertXe(biensoxe, loaixeID, hinhanh, vexeID)){
+            if (xe.InsertXe(biensoxe, loaixeID, hinhanh, vexeID,userID)){
                 return true;
             }
             else {
                 return false;
             }
-
-
         }
     }
 }

@@ -54,7 +54,7 @@
                             window.location.href = "QLKhachhang/Index";
                         }
                         else {
-                            alert('Thêm khách hàng không thành công thất bại :(');
+                            alert('Thêm khách hàng thất bại :(');
                         }
                     });
                 }
@@ -544,17 +544,16 @@
                                                 <td>@kh.sHoten</td>
                                                 <td>@kh.sSodienthoai</td>
                                                 <td>@kh.sDiachi</td>
-                                                <td>@kh.bGioitinh</td>
+                                                <td>@kh.bGioitinh == "True" ? "Nữ" : "Nam"
+                                                </td>
                                                 <td>
                                                     @kh.Username
                                                 </td>
                                                 <td>@kh.sSoCMND</td>
                                                 <td>
-
                                                     @kh.Soseri
                                                 </td>
                                                 <td><button class="btnSua" data-toggle="modal" data-target="#ModalSua" maSua="@kh.PK_iKhachhangID"><i class="fas fa-edit"></i></button> <button class="btnXoa" maXoa="@kh.PK_iKhachhangID"><i class=" fas fa-trash-alt"></i></button> <button class="btnChitiet" mavexe="@kh.Soseri" data-toggle="modal" data-target="#ModalDkive"><i class="fas fa-info-circle"></i></button> </td>
-
                                             </tr>
                                         }
                                     </tbody>

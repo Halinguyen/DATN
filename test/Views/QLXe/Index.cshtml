@@ -353,8 +353,6 @@
                                             <th>Mã vé xe</th>
                                             <th>Ngày đăng ký</th>
                                             <th>Chủ xe</th>
-                                            <th>Xử lý</th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="tbody">
@@ -366,11 +364,11 @@
                                             <td>@i</td>
                                             <td>@xe.sTenLoaixe</td>
                                             <td>@xe.sAnhxe</td>
-                                            <td>@xe.sBiensoxe</td>
+                                            <td> @xe.sBiensoxe</td>
                                             <td>@xe.sMave</td>
-                                            <td>@xe.tNgaytao</td>
+                                            <td>@Convert.ToDateTime(@xe.tNgaytao).ToString("dd/MM/yyyy")</td>
                                             <td>@xe.sHoten</td>
-                                            <td><button class="btnSua" value="@xe.PK_iXeID"><i class="fas fa-edit"></i></button> <button class="btnXoa" value="@xe.PK_iXeID"><i class=" fas fa-trash-alt"></i></button> </td>
+                                            @*<td><button class="btnSua" value="@xe.PK_iXeID"><i class="fas fa-edit"></i></button> <button class="btnXoa" value="@xe.PK_iXeID"><i class=" fas fa-trash-alt"></i></button> </td>*@
                                         </tr>
                                         }
                                     </tbody>

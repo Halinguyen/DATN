@@ -13,16 +13,21 @@ namespace test.Controllers
         // GET: Xeravao
         public ActionResult Index()
         {
-            tbl_Xeravao xeravao = new tbl_Xeravao();
-            Database db = new Database();
-            List<tbl_Xeravao> dsxeravao = db.tbl_Xeravao.ToList();
-            List<tbl_Xe> dsXe = db.tbl_Xe.ToList();
-            List<tbl_Ve> dsVe = db.tbl_Ve.ToList();
-            ViewBag.danhsachXe = dsXe;
-            ViewBag.danhsachVe = dsVe;
-            ViewBag.danhsachxeravao = dsxeravao;
-            
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                tbl_Xeravao xeravao = new tbl_Xeravao();
+                Database db = new Database();
+                List<tbl_Xeravao> dsxeravao = db.tbl_Xeravao.ToList();
+                List<tbl_Xe> dsXe = db.tbl_Xe.ToList();
+                List<tbl_Ve> dsVe = db.tbl_Ve.ToList();
+                ViewBag.danhsachXe = dsXe;
+                ViewBag.danhsachVe = dsVe;
+                ViewBag.danhsachxeravao = dsxeravao;
+
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
         }
 
         public JsonResult NhandienBsx()

@@ -12,10 +12,16 @@ namespace test.Controllers
         // GET: QLLoaixe
         public ActionResult Index()
         {
-            tbl_Loaixe loaixe = new tbl_Loaixe();
-            List<tbl_Loaixe> dsLoaixe = loaixe.GetLoaixeByPK(0);
-            ViewBag.danhsachLoaixe = dsLoaixe;
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                tbl_Loaixe loaixe = new tbl_Loaixe();
+                List<tbl_Loaixe> dsLoaixe = loaixe.GetLoaixeByPK(0);
+                ViewBag.danhsachLoaixe = dsLoaixe;
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+            
         }
         public JsonResult ThemLoaixe()
         {

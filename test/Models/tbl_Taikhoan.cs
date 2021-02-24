@@ -115,6 +115,7 @@ namespace test.Models
                         );
                         danhsachTaikhoan.Add(taikhoan);
                     }
+                    conn.Close();
                     tbl_Phanquyen phanquyen = new tbl_Phanquyen();
                     List<tbl_Phanquyen> glstPhanquyen = new List<tbl_Phanquyen>();
 
@@ -158,6 +159,7 @@ namespace test.Models
                     ketqua = true;
                 else
                     ketqua = false;
+                conn.Close();
 
                 return ketqua;
                 
@@ -194,10 +196,11 @@ namespace test.Models
                     }
                   
                 }
+                conn.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw new ApplicationException("ERROR" + ex);
             }
             return danhsachTaikhoan;
         

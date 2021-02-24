@@ -16,6 +16,14 @@ namespace test
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+          
+        }
+        protected void Session_Start()
+        {
+            Session["username"] = "";
+            Session["password"] = "";
+            Session["userID"] = 0;
+            Session["IsLogin"] = false;
         }
     }
 }

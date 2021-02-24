@@ -11,7 +11,13 @@ namespace test.Controllers
         // GET: Phanquyen
         public ActionResult Index()
         {
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+            
         }
     }
 }

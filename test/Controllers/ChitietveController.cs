@@ -15,20 +15,26 @@ namespace test.Controllers
         // GET: Chitietve
         public ActionResult Index()
         {
-            Database db = new Database();
-            Chitietve ctve = new Chitietve();
-            List<tbl_Xeravao> dsxeravao = db.tbl_Xeravao.ToList();
-            tbl_Khachhang khachhang = new tbl_Khachhang();
-            List<tbl_Ve> dsvexe = db.tbl_Ve.ToList();
-            List<tbl_Loaixe> loaixe = db.tbl_Loaixe.ToList();
-            List<tbl_Khachhang> dskh = db.tbl_Khachhang.ToList();
-            List<tbl_Xe> dsXe = db.tbl_Xe.ToList();
-            ViewBag.danhsachKhachhang = dskh;
-            ViewBag.danhsachloaixe = loaixe;
-            ViewBag.danhsachve = dsvexe;
-            ViewBag.danhsachxe = dsXe;
-            ViewBag.danhsachXeravao = dsxeravao;
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                Database db = new Database();
+                Chitietve ctve = new Chitietve();
+                List<tbl_Xeravao> dsxeravao = db.tbl_Xeravao.ToList();
+                tbl_Khachhang khachhang = new tbl_Khachhang();
+                List<tbl_Ve> dsvexe = db.tbl_Ve.ToList();
+                List<tbl_Loaixe> loaixe = db.tbl_Loaixe.ToList();
+                List<tbl_Khachhang> dskh = db.tbl_Khachhang.ToList();
+                List<tbl_Xe> dsXe = db.tbl_Xe.ToList();
+                ViewBag.danhsachKhachhang = dskh;
+                ViewBag.danhsachloaixe = loaixe;
+                ViewBag.danhsachve = dsvexe;
+                ViewBag.danhsachxe = dsXe;
+                ViewBag.danhsachXeravao = dsxeravao;
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+            
         }
         public JsonResult XemChitietve()
         {

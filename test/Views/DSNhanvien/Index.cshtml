@@ -146,77 +146,41 @@
         </ul>
     </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>
-                        @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
-                        <a class="nav-link" href="index.html">
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            @*<div class="sb-sidenav-menu-heading">Quản lý nhân viên</div>*@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Quản lý khu để xe
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            @Html.ActionLink("Quản lý nhân viên", "Index", "DSNhanvien", null, new { @class = "nav-link" })
 
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Danh sách quyền</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Cấp quyền</a>
-                            </nav>
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            @Html.ActionLink("Quản lý khu để xe", "Index", "DSKhudexe", null, new { @class = "nav-link" })
+
+
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            @Html.ActionLink("Quản lý quyền", "Index", "QLQuyen", null, new { @class = "nav-link" })
+
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            @Html.ActionLink("Quản lý giá vé", "Index", "QLGiave", null, new { @class = "nav-link" })
+
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            @Html.ActionLink("Báo cáo, thống kê", "Index", "Baocao", null, new { @class = "nav-link" })
                         </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Quản lý giá vé
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link">@Html.ActionLink("Login", "Index", "Login")</a>
-                                        <a class="nav-link">@Html.ActionLink("Register", "Index", "Register")</a>
-                                        <a class="nav-link">@Html.ActionLink("Quên mật khẩu", "Index", "Password")</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link"> @Html.ActionLink("401 Page", "401", "Error")</a>
-                                        <a class="nav-link">@Html.ActionLink("404 Page", "404", "Error")</a>
-                                        <a class="nav-link">@Html.ActionLink("500 Page", "500", "Error")</a>
-                                    </nav>
-                                </div>
-                            </nav>
-                        </div>
-                        <div class="sb-sidenav-menu-heading">Quản lý giá vé</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Quản lý quyền</div>
-                        <div class="sb-sidenav-menu-heading">Quản lý báo cáo, thống kê</div>
                     </div>
-                </div>
-                <div class="sb-sidenav-footer">
-
-                </div>
-            </nav>
+                </nav>
+            </div>
         </div>
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
@@ -246,17 +210,17 @@
                                     <tbody id="tbody">
                                         @foreach (var nv in @ViewBag.danhsachNhanvien)
                                         {
-                                        <tr>
-                                            <td style="display: none">@nv.PK_iNhanvienID</td>
-                                            <td>@nv.sHoten</td>
-                                            <td>@nv.dNgaysinh</td>
-                                            <td>@nv.bGioitinh</td>
-                                            <td>@nv.sSoCMND</td>
-                                            <td>@nv.sSodienthoai</td>
-                                            <td>@nv.sDiachi</td>
-                                            <td>@nv.dNgayvaolam</td>
-                                            <td><button class="btnEdit" data-toggle="modal" data-target="#ModalSua" value="@nv.PK_iNhanvienID"><i class="fas fa-edit"></i></button> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
-                                        </tr>
+                                            <tr>
+                                                <td style="display: none">@nv.PK_iNhanvienID</td>
+                                                <td>@nv.sHoten</td>
+                                                <td>@Convert.ToDateTime(@nv.dNgaysinh).ToString("dd/MM/yyyy")</td>
+                                                <td>@nv.bGioitinh</td>
+                                                <td>@nv.sSoCMND</td>
+                                                <td>@nv.sSodienthoai</td>
+                                                <td>@nv.sDiachi</td>
+                                                <td>@Convert.ToDateTime(@nv.dNgayvaolam).ToString("dd/MM/yyyy")</td>
+                                                <td><button class="btnEdit" data-toggle="modal" data-target="#ModalSua" value="@nv.PK_iNhanvienID"><i class="fas fa-edit"></i></button> <i class="fas fa-toggle-on" style="font-size:20px"></i></td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>

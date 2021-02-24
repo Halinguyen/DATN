@@ -13,13 +13,18 @@ namespace test.Controllers
         // GET: QLXe
         public ActionResult Index()
         {
-
-            tbl_Xe xe = new tbl_Xe();
-            List<tbl_Xe> dsXe = xe.GetXeByPK(0);
-            Chitietxe ctxe = new Chitietxe();
-            List<Chitietxe> dsctx = ctxe.XemChitietXe();
-            ViewBag.danhsachxe = dsctx;
-            return View();
+            if (Session["IsLogin"].Equals(true))
+            {
+                tbl_Xe xe = new tbl_Xe();
+                List<tbl_Xe> dsXe = xe.GetXeByPK(0);
+                Chitietxe ctxe = new Chitietxe();
+                List<Chitietxe> dsctx = ctxe.XemChitietXe();
+                ViewBag.danhsachxe = dsctx;
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
+           
         }
     }
 }

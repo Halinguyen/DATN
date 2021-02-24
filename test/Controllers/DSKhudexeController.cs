@@ -12,14 +12,20 @@ namespace test.Controllers
         // GET: DSKhudexe
         public ActionResult Index()
         {
-            tbl_Khudexe khudexe = new tbl_Khudexe();
-            Database db = new Database();
-            List <tbl_Khudexe> dsKhudexe = db.tbl_Khudexe.ToList();
-            List<tbl_Loaixe> dsLoaixe = db.tbl_Loaixe.ToList();
-            ViewBag.dskhudexe = dsKhudexe;
-            ViewBag.dsloaixe = dsLoaixe;
+            if (Session["IsLogin"].Equals(true))
+            {
+                tbl_Khudexe khudexe = new tbl_Khudexe();
+                Database db = new Database();
+                List<tbl_Khudexe> dsKhudexe = db.tbl_Khudexe.ToList();
+                List<tbl_Loaixe> dsLoaixe = db.tbl_Loaixe.ToList();
+                ViewBag.dskhudexe = dsKhudexe;
+                ViewBag.dsloaixe = dsLoaixe;
+
+                return View();
+            }
+            else
+                return RedirectToAction("Index", "Login");
             
-            return View();
         }
         public JsonResult ThemKhudexe()
         {
