@@ -71,5 +71,32 @@ namespace test.Models
             }
             return danhsachQuyen;
         }
+
+        public bool ThemPhanQuyen (string mota, short maquyen, DateTime ngaybatdau, DateTime ngayketthuc, long taikhoanID)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_InsertPhanquyen", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mota", mota);
+                cmd.Parameters.AddWithValue("@maquyen", maquyen);
+                cmd.Parameters.AddWithValue("@ngaybatdau", ngaybatdau);
+                cmd.Parameters.AddWithValue("@ngayketthuc", ngayketthuc);
+                cmd.Parameters.AddWithValue("@mataikhoan", taikhoanID);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("ERROR: " + ex);
+                ketqua = false;
+            }
+            return ketqua;
+        }
     }
 }

@@ -150,8 +150,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\obj\ChitietQuyen.cs" />
     <Compile Include="Models\obj\Chitietve.cs" />
     <Compile Include="Models\obj\Chitietxe.cs" />
+    <Compile Include="Models\obj\CtGiave.cs" />
     <Compile Include="Models\obj\khachhangobj.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\tbl_Calam.cs" />
@@ -202,8 +204,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\bkg.png" />
     <Content Include="Images\iconlogin.jpg" />
+    <Content Include="Images\video.mp4" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

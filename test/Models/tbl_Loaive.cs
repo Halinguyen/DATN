@@ -34,5 +34,29 @@ namespace test.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Giave> tbl_Giave { get; set; }
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
+
+        public List<tbl_Loaive> GetLoaiveByPK(byte loaiveID)
+        {
+            List<tbl_Loaive> danhsachLoaive = new List<tbl_Loaive>();
+            SqlCommand cmd;
+            SqlDataReader dar;
+            cmd = new SqlCommand("sp_GetLoaiveByPK", conn);
+            cmd.Parameters.AddWithValue("@loaiveID", loaiveID);
+            cmd.CommandType = CommandType.StoredProcedure;
+            conn.Open();
+            dar = cmd.ExecuteReader();
+            if (dar.HasRows)
+            {
+                while (dar.Read())
+                {
+                    tbl_Loaive loaive = new tbl_Loaive(
+                        dar["PK_iLoaiveID"].ToString(),
+                    dar["sTenloaive"].ToString()
+                        );
+                    danhsachLoaive.Add(loaive);
+                }
+            }
+            return danhsachLoaive;
+        }
     }
 }
