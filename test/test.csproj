@@ -133,6 +133,9 @@
     <Compile Include="Controllers\DSKhudexeController.cs" />
     <Compile Include="Controllers\DSNhanvienController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KHDKVexeController.cs" />
+    <Compile Include="Controllers\KHGHVexeController.cs" />
+    <Compile Include="Controllers\KHVexeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PhanquyenController.cs" />
     <Compile Include="Controllers\QLGiaveController.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Models\obj\Chitietve.cs" />
     <Compile Include="Models\obj\Chitietxe.cs" />
     <Compile Include="Models\obj\CtGiave.cs" />
+    <Compile Include="Models\obj\Doanhthuthang.cs" />
     <Compile Include="Models\obj\khachhangobj.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\tbl_Calam.cs" />
@@ -242,6 +246,9 @@
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\sb-admin-2.min.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Views\KHDKVexe\Index.cshtml" />
+    <Content Include="Views\KHGHVexe\Index.cshtml" />
+    <Content Include="Views\KHVexe\Index.cshtml" />
     <None Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Phanquyen\Index.cshtml" />
     <Content Include="Views\QLKhachhang\Index.cshtml" />

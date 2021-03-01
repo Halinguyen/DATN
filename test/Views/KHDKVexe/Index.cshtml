@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +14,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="~/Content/all.min.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
@@ -25,10 +26,71 @@
             background-color: darkcyan;
             background-image: none;
         }
+
         .btn btn-primary {
             background-color: darkcyan;
         }
     </style>
+
+    <script>
+        function base64ToBlob(base64, mime) {
+            mime = mime || '';
+            var sliceSize = 1024;
+            var byteChars = window.atob(base64);
+            var byteArrays = [];
+
+            for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+                var slice = byteChars.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            return new Blob(byteArrays, { type: mime });
+        }
+        $(document).ready(function () {
+            $(document).on('click', '#btnLuu', function () {
+
+                var hoten = $('txtHoten').val();
+                var sodienthoai = $('txtSodt').val();
+                var diachi = $('txtDiachi').val();
+                var gioitinh = $('input[name="Gioitinh"]:checked').val();
+                var cmnd = $('txtCMND').val();
+                var biensoxe = $('txtBiensoxe').val();
+                var anhxe = $('').val();
+                var loaixe = $('#ddlLoaixe option:selected').attr('id');
+                var username = $('txtUsername').val();
+                //------------------------------------------------------------
+                //------------------------------------------------------------
+                var url = "KHDKVexe/DKVexe";
+                var image = $('#output').attr('src');
+                var base64ImageContent = image.replace(/^data:image\/(png|jpg);base64,/, "");
+                var blob = base64ToBlob(base64ImageContent, 'image/png');
+                var formData = new FormData();
+                formData.append('picture', blob);
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData
+                })
+                    .done(function (e) {
+                        alert('done!');
+                    });
+            });
+
+
+        });
+    </script>
 
 </head>
 
@@ -309,8 +371,61 @@
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <form>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtHoten">Họ tên</label>
+                            <input class="form-control py-4" id="txtHoten" type="text" placeholder="Nhập họ tên " required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtSodt">Số điện thoại</label>
+                            <input class="form-control py-4" id="txtSodt" type="text" placeholder="Nhập số điện thoại" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtDiachi">Địa chỉ</label>
+                            <input class="form-control py-4" id="txtDiachi" type="text" placeholder="Nhập địa chỉ" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputGioitinh">Giới tính </label>
+                            &emsp;&emsp;<input name="Gioitinh" value="false " type="radio" style="width:20px;height:20px" /> Nam
+                            &emsp;&emsp;<input name="Gioitinh" value="true" checked="checked" type="radio" style="width:20px;height:20px" /> Nữ
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtUsername">Tên tài khoản</label>
+                            <input class="form-control py-4" id="txtUsername" type="text" placeholder="Nhập tên tài khoản" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtCMND">Số chứng minh nhân dân</label>
+                            <input class="form-control py-4" id="txtCMND" type="text" placeholder="Nhập số CMND" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="txtBiensoxe">Biển số xe</label>
+                            <input class="form-control py-4" id="txtBiensoxe" type="text" placeholder="Nhập biển số xe" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" for="dllLoaixe">Loại xe</label>
+                            <select style="padding:11px; border: 1px solid #d7d3d3" id="dllLoaixe">
+                                <option>--- Chọn loại xe ---</option>
+                                @foreach (var lx in @ViewBag.dsLoaixe)
+                                {
+                                    <option id="@lx.PK_iLoaixeID">@lx.sTenLoaixe </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p><img id="output" width="300" style="border: 1px solid black" /></p>
+                            <p><input type="file" accept="image/*" name="image" id="txtAnhxe" onchange="loadFile(event)" style="display: none;"></p>
+                            <p><label for="txtAnhxe" style="cursor: pointer;" class="btn btn-success">Chọn hình ảnh</label></p>
+                            <script>
+                                var loadFile = function (event) {
+                                    var image = document.getElementById('output');
+                                    image.src = URL.createObjectURL(event.target.files[0]);
+                                    var file = event.target.files[0];
+                                };
+                            </script>
+                        </div>
 
-                    <!-- Page Heading -->
+                    </form>
+                    <button type="button" id="btnLuu" class="btn btn-primary">Đăng ký</button>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -351,7 +466,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    @Html.ActionLink("Logout","Index","Login", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Logout", "Index", "Login", null, new { @class = "btn btn-primary" })
                 </div>
             </div>
         </div>

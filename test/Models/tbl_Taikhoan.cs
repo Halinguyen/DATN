@@ -120,18 +120,20 @@ namespace test.Models
                     List<tbl_Phanquyen> glstPhanquyen = new List<tbl_Phanquyen>();
 
                     glstPhanquyen = phanquyen.XemQuyenByFK_iTaikhoanID(danhsachTaikhoan[0].PK_iTaikhoanID);
-                    switch (glstPhanquyen[0].FK_iQuyenID)
+                    if (glstPhanquyen.Count > 0)
                     {
-                        case 1:
-                            ketqua = "True1";
-                            break;
-                        case 2:
-                            ketqua = "True2";
-                            break;
-                        case 3:
-                            ketqua = "True3";
-                            break;
-                    }  
+                        switch (glstPhanquyen[0].FK_iQuyenID)
+                        {
+                            case 1:
+                                ketqua = "True1";
+                                break;
+                            case 2:
+                                ketqua = "True2";
+                                break;
+                        }
+                    }
+                    else
+                        ketqua = "True3";
                 }
                 else
                     ketqua = "Sai";

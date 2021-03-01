@@ -8,9 +8,34 @@
     <meta name="author" content="" />
     <title>Trang Admin</title>
     <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+
+
+    <script>
+        $(document).on('click', '#btnXem', function () {
+            var ngaybatdau = $('txtNgayBatdau').val();
+            var ngayketthuc = $('txtNgayketthuc').val();
+            var loaixe = $('#ddlLoaixe option:selected').attr('id');
+            const data = {
+                ngaybatdau, ngayketthuc,loaixe
+            }
+            $.ajax({
+                url: location.pathname + '/BaocaoDoanhthuthang',
+                type: 'POST',
+                data: data,
+            }).done(function (res) {
+                if (res) {
+                    
+                }
+                else {
+                    alert('Failed :(');
+                }
+            });
+        });
+    </script>
 
 
 
@@ -79,6 +104,54 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Báo cáo doanh thu theo loại xe
+                        </div>
+                        <div style="padding:20px;">
+                            <label>Bắt đầu từ: </label><input type="date" id="txtNgayBatdau" />
+                            <label>Đến: </label><input type="date" id="txtNgayketthuc" />
+                            <label>Loại xe: </label>
+                            <select style="padding:11px; border: 1px solid #d7d3d3" id="dllLoaixe">
+                                <option>--- Chọn loại xe ---</option>
+                                @foreach (var lx in @ViewBag.dsLoaixe)
+                                {
+                                    <option id="@lx.PK_iLoaixeID">@lx.sTenLoaixe </option>
+                                }
+                            </select>
+                        </div>
+                        <button type="button" id="btnXem" class="btn btn-primary w-100">Xem</button>
+                        <div class="card-body">
+                            <div class="table-responsive">                              
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mục doanh thu</th>
+                                            <th>Đơn vị</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <tr>
+                                            <td></td>
+                                            <td>Vé tháng</td>
+                                            <td>Xe</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
