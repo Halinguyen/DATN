@@ -1,4 +1,4 @@
-namespace test.Models
+﻿namespace test.Models
 {
     using System;
     using System.Collections.Generic;
@@ -109,6 +109,93 @@ namespace test.Models
                 }
             }
             return danhsachvexe;
+        }
+
+        public bool InsertVexe(string maVexe, DateTime ngayhethan)
+        {
+            bool ketqua = false;
+            try
+            {
+                SqlCommand cmd;
+                SqlDataReader dar;
+                cmd = new SqlCommand("sp_InsertVe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@serive", maVexe);
+                cmd.Parameters.AddWithValue("@ngaytao", DateTime.Now);
+                cmd.Parameters.AddWithValue("@trangthai", 1);
+                cmd.Parameters.AddWithValue("@ngayhethan", ngayhethan);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    ketqua = true;
+                else
+                    ketqua = false;
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ketqua = false;
+            }
+            return ketqua;
+           
+        }
+
+        public bool UpdateVexe (long vexeID, string maVexe, DateTime ngaytao, DateTime ngayhethan)
+        {
+            bool kq = false;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("sp_UpdateVexe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mavexe", vexeID);
+                cmd.Parameters.AddWithValue("@serive", maVexe);
+                cmd.Parameters.AddWithValue("@ngaytao", DateTime.Now);
+                cmd.Parameters.AddWithValue("@trangthai", 1);
+                cmd.Parameters.AddWithValue("@ngayhethan", ngayhethan);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    kq = true;
+                else
+                    kq = false;
+                conn.Close();
+
+            }
+            catch(Exception ex)
+            {
+                kq = false;
+            }
+            return kq;
+        }
+        /// <summary>
+        /// chuyển trạng thái vé xe
+        /// </summary>
+        /// <param name="vexeID"></param>
+        /// <param name="trangthai"></param>
+        /// <returns></returns>
+        public bool ChuyentrangthaiVexe (long vexeID, bool trangthai)
+        {
+            bool kq = false;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("sp_ChuyentrangthaiVexe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mavexe", vexeID);
+                cmd.Parameters.AddWithValue("@trangthai", trangthai);
+                conn.Open();
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                    kq = true;
+                else
+                    kq = false;
+                conn.Close();
+            } catch(Exception ex)
+            {
+                kq = false;
+            }
+            return kq;
         }
     }
 }

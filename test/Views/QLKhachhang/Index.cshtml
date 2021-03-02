@@ -544,7 +544,8 @@
                                                 <td>@kh.sHoten</td>
                                                 <td>@kh.sSodienthoai</td>
                                                 <td>@kh.sDiachi</td>
-                                                <td>@kh.bGioitinh == "True" ? "Nữ" : "Nam"
+                                                <td>
+                                                    @(Convert.ToBoolean(@kh.bGioitinh) ==false?"Nam":"Nữ")
                                                 </td>
                                                 <td>
                                                     @kh.Username
