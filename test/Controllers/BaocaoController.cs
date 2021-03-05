@@ -16,6 +16,9 @@ namespace test.Controllers
             {
                 tbl_Loaixe loaixe = new tbl_Loaixe();
                 List<tbl_Loaixe> dsLoaixe = loaixe.GetLoaixeByPK(0);
+                tbl_Loaive loaive = new tbl_Loaive();
+                List<tbl_Loaive> dsLoaive = loaive.GetLoaiveByPK(0);
+                ViewBag.dsLoaive = dsLoaive;
                 ViewBag.dsLoaixe = dsLoaixe;
 
                 return View();
@@ -27,6 +30,22 @@ namespace test.Controllers
 
         public string BaocaoDoanhthuthang()
         {
+            byte loaiveID = Convert.ToByte(Request["loaive"]);
+            short loaixeID = Convert.ToInt16(Request["loaixe"]);
+            DateTime ngaybatdau = Convert.ToDateTime(Request["ngaybatdau"]);
+            DateTime ngayketthuc = Convert.ToDateTime(Request["ngayketthuc"]);
+            if(loaiveID > 0)
+            {
+                if(loaiveID == 1)
+                {
+
+                }
+                else
+                {
+
+                }
+               
+            }
             return "";
 
         }
@@ -83,5 +102,10 @@ namespace test.Controllers
 
             }
         }*/
+
+        public void ExportExcel()
+        {
+
+        }
     }
 }

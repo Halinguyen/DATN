@@ -18,9 +18,10 @@
         $(document).on('click', '#btnXem', function () {
             var ngaybatdau = $('txtNgayBatdau').val();
             var ngayketthuc = $('txtNgayketthuc').val();
-            var loaixe = $('#ddlLoaixe option:selected').attr('id');
+            var loaixe = $('#dllLoaixe option:selected').attr('id');
+            var loaive = $('#ddlLoaive option:selected').attr('id');
             const data = {
-                ngaybatdau, ngayketthuc,loaixe
+                ngaybatdau, ngayketthuc, loaixe, loaive
             }
             $.ajax({
                 url: location.pathname + '/BaocaoDoanhthuthang',
@@ -28,12 +29,16 @@
                 data: data,
             }).done(function (res) {
                 if (res) {
-                    
+
                 }
                 else {
                     alert('Failed :(');
                 }
             });
+        });
+
+        $(document).on('click', '#btnExport', function () {
+
         });
     </script>
 
@@ -114,6 +119,8 @@
                         <div style="padding:20px;">
                             <label>Bắt đầu từ: </label><input type="date" id="txtNgayBatdau" />
                             <label>Đến: </label><input type="date" id="txtNgayketthuc" />
+
+                            <br /><br />
                             <label>Loại xe: </label>
                             <select style="padding:11px; border: 1px solid #d7d3d3" id="dllLoaixe">
                                 <option>--- Chọn loại xe ---</option>
@@ -122,13 +129,24 @@
                                     <option id="@lx.PK_iLoaixeID">@lx.sTenLoaixe </option>
                                 }
                             </select>
+
+                            <label>Loại vé: </label>
+                            <select style="padding:11px; border: 1px solid #d7d3d3" id="ddlLoaive">
+                                <option>--- Chọn loại vé ---</option>
+                                @foreach (var lv in @ViewBag.dsLoaive)
+                                {
+                                    <option id="@lv.PK_iLoaiveID">@lv.sTenloaive </option>
+                                }
+                            </select>
                         </div>
                         <button type="button" id="btnXem" class="btn btn-primary w-100">Xem</button>
                         <div class="card-body">
-                            <div class="table-responsive">                              
+                            <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
+
                                         <tr>
+
                                             <th>STT</th>
                                             <th>Mục doanh thu</th>
                                             <th>Đơn vị</th>
@@ -136,18 +154,26 @@
                                             <th>Đơn giá</th>
                                             <th>Thành tiền</th>
                                         </tr>
+
                                     </thead>
                                     <tbody id="tbody">
-                                        <tr>
-                                            <td></td>
-                                            <td>Vé tháng</td>
-                                            <td>Xe</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @{ int i = 0;}
+                                        @foreach (var vx in @ViewBag.dsLoaive)
+                                        {
+                                            <tr>
+                                                @{ i++;}
+                                                <td>@i</td>
+                                                <td></td>
+                                                <td>Xe</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
-                            </div>
+                            </div>                           
+                            <a href="@Url.Action("ExportExcel","Baocao")" class="btn btn-success">Export Excel</a>
                         </div>
                     </div>
                 </div>

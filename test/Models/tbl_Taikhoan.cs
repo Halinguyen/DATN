@@ -130,6 +130,10 @@ namespace test.Models
                             case 2:
                                 ketqua = "True2";
                                 break;
+                            case 3:
+                                ketqua = "True3";
+                                break;
+
                         }
                     }
                     else
